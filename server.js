@@ -7,19 +7,21 @@ const foodRoutes = require('./routes/foodRoutes');
 const app = express();
 const port = process.env.PORT || 5000;
 
+// Middleware
+app.use(express.json());
+
 app.use(cors());
 app.use(express.json());
 
 mongoose.connect('mongodb://localhost:27017/wellnav', {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
 }).then(() => {
   console.log('Connected to MongoDB');
 }).catch(err => {
   console.error('Error connecting to MongoDB', err);
 });
 
-// Route untuk root URL
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
