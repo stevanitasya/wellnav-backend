@@ -9,7 +9,8 @@ const FoodSchema = new mongoose.Schema({
     carbs: { type: Number },
     protein: { type: Number },
     fat: { type: Number }
-  }
+  },
+  healthConditions: [{ type: String, enum: ['GERD', 'Diabetes', 'Asam Urat', 'Darah tinggi'] }]
 });
 
 module.exports = mongoose.model('Food', FoodSchema);

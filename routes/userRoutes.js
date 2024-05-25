@@ -1,6 +1,9 @@
 const express = require('express');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const router = express.Router();
-const User = require('./models/User');
+const User = require('../models/User');
+const Food = require('../models/Food');
 
 // Route untuk Signup
 router.post('/signup', async (req, res) => {
@@ -18,14 +21,20 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({ username, password });
-    if (user) {
-      res.status(200).json(user);
-    } else {
-      res.status(400).json({ message: 'Invalid username or password' });
+    const user = await User.findOne({ email });
+    if (!user) {
+      return res.status(400).send({ error: 'Login failed! Check authentication credentials' });
     }
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    if (!isPasswordMatch) {
+      return res.status(400).send({ error: 'Login failed! Check authentication credentials' });
+    }
+    const token = jwt.sign({ _id: user._id }, 'your_jwt_secret', { expiresIn: '7d' });
+    user.tokens = user.tokens.concat({ token });
+    await user.save();
+    res.send({ user, token });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).send(error);
   }
 });
 
@@ -38,5 +47,3 @@ router.get('/', async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
-
-module.exports = router;
