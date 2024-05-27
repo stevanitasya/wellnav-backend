@@ -30,7 +30,7 @@ app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'em
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/' }),
   (req, res) => {
-    res.redirect('/dashboard'); // Ganti dengan halaman dashboard Anda
+    res.redirect('/dashboard'); 
   });
 
 const PORT = process.env.PORT || 5000;
