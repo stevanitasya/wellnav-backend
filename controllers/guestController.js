@@ -5,10 +5,11 @@ exports.getLandingPage = (req, res) => {
       title: "Guiding You Towards a Healthier Future.",
       description: "Your guide to healthy eating, tailored to your health needs.",
       features: [
-        { name: "Feature 1", description: "Description of Feature 1", image: "url_to_image_1" },
-        { name: "Feature 2", description: "Description of Feature 2", image: "url_to_image_2" },
-        { name: "Feature 3", description: "Description of Feature 2", image: "url_to_image_2" },
-        { name: "Feature 4", description: "Description of Feature 2", image: "url_to_image_2" }
+        { name: "Pelacakan Nutrisi", description: "Dapat melacak asupan nutrisi yang didapat sesuai dengan jenis makanan yang dikonsumsi.", image: "url_to_image_1" },
+        { name: "Pengukuran Kalori dan Lemak", description: "Informasi pengisian berat badan untuk melacak dampak makanan terhadap tubuh.", image: "url_to_image_2" },
+        { name: "Notifikasi dan Pengingat", description: "Mendapat notifikasi jadwal harian yang disesuaikan dengan kondisi kesehatan pengguna.", image: "url_to_image_2" },
+        { name: "Rekomendasi Makanan", description: "Dapat merekomendasikan jenis makanan yang lebih baik dikonsumsi oleh pengguna", image: "url_to_image_2" },
+        { name: "Pelacakan Jumlah Air Putih", description: "Mendapat notifikasi jadwal harian yang disesuaikan dengan kondisi kesehatan pengguna.", image: "url_to_image_2" }
       ],
       getStartedButton: "Sign Up"
     },
@@ -17,30 +18,56 @@ exports.getLandingPage = (req, res) => {
       content: "Halo teman-teman semua. Perkenalkan kami tiga mahasiswa semester akhir dari Universitas Bina Nusantara...",
       MoreButton: "About"
     },
-    faq: [
-      { question: "What is WellNav?", answer: "WellNav is a tool to help you manage your well-being." }
-    ]
+    faq: {
+      title: "FAQ"
+    }
   });
 };
 
 exports.getAboutPage = (req, res) => {
   console.log('getAboutPage called');
   res.json({
-    developers: [
-      {
-        name: "Developer 1",
-        nim: "123456789",
-        photo: "url_to_photo_1"
+    developers: [      {
+        name: "Stevani Natasya Sero",
+        nim: "2440022605",
+        photo: "/images/photo_stevani.jpg"
       },
       {
-        name: "Developer 2",
-        nim: "987654321",
-        photo: "url_to_photo_2"
+        name: "Azzah Husna Almy",
+        nim: "2440058025",
+        photo: "/images/photo_azzah.jpg"
       },
       {
-        name: "Developer 3",
-        nim: "987654322",
-        photo: "url_to_photo_3"
+        name: "Jesen Yeoko",
+        nim: "2440058025",
+        photo: "/images/photo_jesen.jpg"
+      }
+    ]
+  });
+};
+
+exports.getFAQPage = (req, res) => {
+  console.log('getFAQPage called');
+  res.json({
+    faq: [      {
+        question: "Apa itu aplikasi WellNav?",
+        answer: "test"
+      },
+      {
+        question: "Bagaimana WellNav menyesuaikan panduannya dengan profil kesehatan pengguna?",
+        answer: "test"
+      },
+      {
+        question: "Bagaimana Pelacakan Nutrisi membantu pengguna?",
+        answer: "test"
+      },
+      {
+        question: "Apakah aplikasi WellNav memberikan informasi nutrisi untuk setiap makanan?",
+        answer: "test"
+      }, 
+      {
+        question: "Bagaimana cara mendapatkan bantuan atau dukungan teknis untuk Wellnav?",
+        answer: "test"
       }
     ]
   });
