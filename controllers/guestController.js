@@ -30,17 +30,17 @@ exports.getAboutPage = (req, res) => {
     developers: [      {
         name: "Stevani Natasya Sero",
         nim: "2440022605",
-        photo: "url_to_photo_1"
+        photo: "/images/photo_stevani.jpg"
       },
       {
         name: "Azzah Husna Almy",
         nim: "2440058025",
-        photo: "url_to_photo_2"
+        photo: "/images/photo_azzah.jpg"
       },
       {
         name: "Jesen Yeoko",
         nim: "2440058025",
-        photo: "url_to_photo_3"
+        photo: "/images/photo_jesen.jpg"
       }
     ]
   });
