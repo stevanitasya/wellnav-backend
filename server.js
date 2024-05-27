@@ -1,34 +1,37 @@
 const express = require('express');
-const mongoose = require('mongoose');
-const cors = require('cors');
+const bodyParser = require('body-parser');
+const connectDB = require('./config/db');
+const guestRoutes = require('./routes/guestRoutes');
 const userRoutes = require('./routes/userRoutes');
-const foodRoutes = require('./routes/foodRoutes');
+const passport = require('passport');
+const session = require('express-session');
+const cors = require('cors');
+require('./config/passport');
+require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 5000;
+
+// Connect to database
+connectDB();
 
 // Middleware
-app.use(express.json());
-
+app.use(bodyParser.json());
 app.use(cors());
-app.use(express.json());
 
-mongoose.connect('mongodb://localhost:27017/wellnav', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-}).then(() => {
-  console.log('Connected to MongoDB');
-}).catch(err => {
-  console.error('Error connecting to MongoDB', err);
-});
+app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
-
+// Routes
+app.use('/api/guest', guestRoutes);
 app.use('/api/users', userRoutes);
-app.use('/api/foods', foodRoutes);
 
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
-});
+app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+app.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/' }),
+  (req, res) => {
+    res.redirect('/dashboard'); // Ganti dengan halaman dashboard Anda
+  });
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

@@ -1,24 +1,39 @@
 const mongoose = require('mongoose');
-const AutoIncrement = require('mongoose-sequence')(mongoose);
+const bcrypt = require('bcryptjs');
 
-const healthConditions = [
-  'GERD',
-  'Diabetes',
-  'Asam Urat',
-  'Darah tinggi'
-];
+const foodConsumptionSchema = new mongoose.Schema({
+  date: { type: Date, required: true },
+  calories: { type: Number, required: true },
+  carbohydrates: { type: Number, required: true },
+  protein: { type: Number, required: true },
+  fat: { type: Number, required: true }
+});
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
   email: { type: String, required: true, unique: true },
-  age: { type: Number, min: 18, max: 120, required: true },
-  healthCondition: { type: String, required: true, enum: healthConditions },
+  password: { type: String, required: true },
+  age: { type: Number, required: true },
+  healthCondition: { 
+    type: [String], 
+    enum: ['GERD', 'Diabetes', 'Asam Urat', 'Darah tinggi'], 
+    required: true 
+  },
+  foodConsumption: [foodConsumptionSchema]
 });
 
-// Plugin auto-increment
-userSchema.plugin(AutoIncrement, { inc_field: 'id' });
+userSchema.pre('save', async function(next) {
+  if (!this.isModified('password')) {
+    return next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+  next();
+});
+
+userSchema.methods.matchPassword = async function(enteredPassword) {
+  return await bcrypt.compare(enteredPassword, this.password);
+};
 
 const User = mongoose.model('User', userSchema);
-
 module.exports = User;
