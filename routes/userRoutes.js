@@ -2,8 +2,8 @@ const express = require('express');
 const { createUser, loginUser, addFoodConsumption, getDashboardData, getProfile, updateProfile, getFoodRecommendations, filterFoodRecommendations, toggleFavoriteFood, getFavoriteFoods } = require('../controllers/userController');
 const router = express.Router();
 
-router.post('/signup', createUser);
-router.post('/login', loginUser);
+router.post('/signup', createUser); 
+router.post('/login', loginUser); 
 router.post('/food', addFoodConsumption);
 router.get('/dashboard/:userId', getDashboardData);
 router.get('/profile/:userId', getProfile);

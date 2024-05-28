@@ -1,5 +1,5 @@
 exports.getLandingPage = (req, res) => {
-  console.log('getLandingPage called');
+  console.log('getLandingPage called'); 
   res.json({
     home: {
       title: "Guiding You Towards a Healthier Future.",

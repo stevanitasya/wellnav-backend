@@ -6,6 +6,7 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
+//sign up
 exports.createUser = async (req, res) => {
   try {
     const { username, email, password, confirmPassword, age, healthCondition } = req.body;
@@ -29,6 +30,7 @@ exports.createUser = async (req, res) => {
   }
 };
 
+//login
 exports.loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -52,6 +54,50 @@ exports.loginUser = async (req, res) => {
   }
 };
 
+// Fungsi untuk mendapatkan profil pengguna
+exports.getProfile = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId).select('-password');
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Fungsi untuk memperbarui profil pengguna
+exports.updateProfile = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { username, email, age, healthCondition } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.username = username || user.username;
+    user.email = email || user.email;
+    user.age = age || user.age;
+    user.healthCondition = healthCondition || user.healthCondition;
+
+    const updatedUser = await user.save();
+    res.json({
+      _id: updatedUser._id,
+      username: updatedUser.username,
+      email: updatedUser.email,
+      age: updatedUser.age,
+      healthCondition: updatedUser.healthCondition
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+//dashboard
 exports.getDashboardData = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -82,6 +128,7 @@ exports.getDashboardData = async (req, res) => {
   }
 };
 
+//pelacakan nutrisi
 exports.addFoodConsumption = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -144,49 +191,7 @@ exports.addFoodConsumption = async (req, res) => {
   }
 };
 
-// Fungsi untuk mendapatkan profil pengguna
-exports.getProfile = async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const user = await User.findById(userId).select('-password');
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    res.json(user);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
-// Fungsi untuk memperbarui profil pengguna
-exports.updateProfile = async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const { username, email, age, healthCondition } = req.body;
-
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    user.username = username || user.username;
-    user.email = email || user.email;
-    user.age = age || user.age;
-    user.healthCondition = healthCondition || user.healthCondition;
-
-    const updatedUser = await user.save();
-    res.json({
-      _id: updatedUser._id,
-      username: updatedUser.username,
-      email: updatedUser.email,
-      age: updatedUser.age,
-      healthCondition: updatedUser.healthCondition
-    });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
+//pelacakan nutrisi
 exports.getFoodConsumption = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -204,7 +209,7 @@ exports.getFoodConsumption = async (req, res) => {
   }
 };
 
-// Fungsi untuk mendapatkan rekomendasi makanan berdasarkan kondisi kesehatan
+//rekomendasi makanan berdasarkan kondisi kesehatan
 exports.getFoodRecommendations = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -223,7 +228,7 @@ exports.getFoodRecommendations = async (req, res) => {
   }
 };
 
-// Fungsi untuk memfilter makanan
+//untuk memfilter makanan
 exports.filterFoodRecommendations = async (req, res) => {
   try {
     const { category } = req.query;
@@ -234,7 +239,7 @@ exports.filterFoodRecommendations = async (req, res) => {
   }
 };
 
-// Fungsi untuk menandai makanan sebagai favorit
+//menandai makanan sebagai favorit
 exports.toggleFavoriteFood = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -258,7 +263,7 @@ exports.toggleFavoriteFood = async (req, res) => {
   }
 };
 
-// Fungsi untuk mendapatkan makanan favorit
+//untuk mendapatkan makanan favorit
 exports.getFavoriteFoods = async (req, res) => {
   try {
     const userId = req.params.userId;
