@@ -3,6 +3,12 @@ const bcrypt = require('bcryptjs');
 
 const foodConsumptionSchema = new mongoose.Schema({
   date: { type: Date, required: true },
+  mealType: {
+    type: String,
+    enum: ['Breakfast', 'Lunch', 'Dinner'],
+    required: true
+  },
+  foods: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Food' }],
   calories: { type: Number, required: true },
   carbohydrates: { type: Number, required: true },
   protein: { type: Number, required: true },
@@ -19,7 +25,8 @@ const userSchema = new mongoose.Schema({
     enum: ['GERD', 'Diabetes', 'Asam Urat', 'Darah tinggi'], 
     required: true 
   },
-  foodConsumption: [foodConsumptionSchema]
+  foodConsumption: [foodConsumptionSchema],
+  favoriteFoods: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Food' }]
 });
 
 userSchema.pre('save', async function(next) {

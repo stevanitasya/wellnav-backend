@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 const guestRoutes = require('./routes/guestRoutes');
 const userRoutes = require('./routes/userRoutes');
+const foodRoutes = require('./routes/foodRoutes');
 const passport = require('passport');
 const session = require('express-session');
 const cors = require('cors');
@@ -25,6 +26,7 @@ app.use(passport.session());
 // Routes
 app.use('/api/guest', guestRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/foods', foodRoutes);
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 app.get('/auth/google/callback',

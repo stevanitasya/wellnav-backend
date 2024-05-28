@@ -52,24 +52,6 @@ exports.loginUser = async (req, res) => {
   }
 };
 
-exports.addFoodConsumption = async (req, res) => {
-  try {
-    const { userId, date, calories, carbohydrates, protein, fat } = req.body;
-
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
-
-    user.foodConsumption.push({ date, calories, carbohydrates, protein, fat });
-    await user.save();
-
-    res.status(201).json(user.foodConsumption);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
 exports.getDashboardData = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -95,6 +77,196 @@ exports.getDashboardData = async (req, res) => {
         fat: latestConsumption.fat
       }
     });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+exports.addFoodConsumption = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { mealType, foodIds } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const foods = await Food.find({ _id: { $in: foodIds } });
+    const healthConditions = user.healthCondition;
+
+    let totalCalories = 0;
+    let totalCarbs = 0;
+    let totalProtein = 0;
+    let totalFat = 0;
+    let isFoodSafe = true;
+
+    foods.forEach(food => {
+      totalCalories += food.calories;
+      totalCarbs += food.carbohydrates;
+      totalProtein += food.protein;
+      totalFat += food.fat;
+      
+      if (food.healthConditions.some(cond => healthConditions.includes(cond))) {
+        isFoodSafe = false;
+      }
+    });
+
+    if (!isFoodSafe) {
+      return res.status(400).json({ error: "The food you eat is not good for your current health condition" });
+    }
+
+    const today = new Date().toISOString().split('T')[0];
+    let dailyConsumption = user.foodConsumption.find(fc => fc.date.toISOString().split('T')[0] === today && fc.mealType === mealType);
+
+    if (dailyConsumption) {
+      dailyConsumption.foods = [...dailyConsumption.foods, ...foodIds];
+      dailyConsumption.calories += totalCalories;
+      dailyConsumption.carbohydrates += totalCarbs;
+      dailyConsumption.protein += totalProtein;
+      dailyConsumption.fat += totalFat;
+    } else {
+      user.foodConsumption.push({
+        date: new Date(),
+        mealType,
+        foods: foodIds,
+        calories: totalCalories,
+        carbohydrates: totalCarbs,
+        protein: totalProtein,
+        fat: totalFat
+      });
+    }
+
+    await user.save();
+    res.json(user.foodConsumption);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Fungsi untuk mendapatkan profil pengguna
+exports.getProfile = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId).select('-password');
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Fungsi untuk memperbarui profil pengguna
+exports.updateProfile = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { username, email, age, healthCondition } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    user.username = username || user.username;
+    user.email = email || user.email;
+    user.age = age || user.age;
+    user.healthCondition = healthCondition || user.healthCondition;
+
+    const updatedUser = await user.save();
+    res.json({
+      _id: updatedUser._id,
+      username: updatedUser.username,
+      email: updatedUser.email,
+      age: updatedUser.age,
+      healthCondition: updatedUser.healthCondition
+    });
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+exports.getFoodConsumption = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId).populate('foodConsumption.foods');
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const today = new Date().toISOString().split('T')[0];
+    const dailyConsumption = user.foodConsumption.filter(fc => fc.date.toISOString().split('T')[0] === today);
+
+    res.json(dailyConsumption);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Fungsi untuk mendapatkan rekomendasi makanan berdasarkan kondisi kesehatan
+exports.getFoodRecommendations = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const recommendations = await Food.find({
+      healthConditions: { $in: user.healthCondition }
+    });
+
+    res.json(recommendations);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Fungsi untuk memfilter makanan
+exports.filterFoodRecommendations = async (req, res) => {
+  try {
+    const { category } = req.query;
+    const filteredFoods = await Food.find({ category });
+    res.json(filteredFoods);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Fungsi untuk menandai makanan sebagai favorit
+exports.toggleFavoriteFood = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const foodId = req.params.foodId;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    if (user.favoriteFoods.includes(foodId)) {
+      user.favoriteFoods = user.favoriteFoods.filter(id => id.toString() !== foodId);
+    } else {
+      user.favoriteFoods.push(foodId);
+    }
+
+    await user.save();
+    res.json(user.favoriteFoods);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Fungsi untuk mendapatkan makanan favorit
+exports.getFavoriteFoods = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId).populate('favoriteFoods');
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    res.json(user.favoriteFoods);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
