@@ -5,11 +5,11 @@ exports.getLandingPage = (req, res) => {
       title: "Guiding You Towards a Healthier Future.",
       description: "Your guide to healthy eating, tailored to your health needs.",
       features: [
-        { name: "Pelacakan Nutrisi", description: "Dapat melacak asupan nutrisi yang didapat sesuai dengan jenis makanan yang dikonsumsi.", image: "url_to_image_1" },
-        { name: "Pengukuran Kalori dan Lemak", description: "Informasi pengisian berat badan untuk melacak dampak makanan terhadap tubuh.", image: "url_to_image_2" },
-        { name: "Notifikasi dan Pengingat", description: "Mendapat notifikasi jadwal harian yang disesuaikan dengan kondisi kesehatan pengguna.", image: "url_to_image_2" },
-        { name: "Rekomendasi Makanan", description: "Dapat merekomendasikan jenis makanan yang lebih baik dikonsumsi oleh pengguna", image: "url_to_image_2" },
-        { name: "Pelacakan Jumlah Air Putih", description: "Mendapat notifikasi jadwal harian yang disesuaikan dengan kondisi kesehatan pengguna.", image: "url_to_image_2" }
+        { name: "Pelacakan Nutrisi", description: "Dapat melacak asupan nutrisi yang didapat sesuai dengan jenis makanan yang dikonsumsi.", image: ".png" },
+        { name: "Pengukuran Kalori", description: "Informasi mengenai jumlah kalori, karbohidrat, dll yang bertujuan untuk melacak dampak makanan terhadap tubuh.", image: "" },
+        { name: "Notifikasi dan Pengingat", description: "Mendapat notifikasi jadwal harian yang disesuaikan dengan kondisi kesehatan pengguna.", image: "" },
+        { name: "Rekomendasi Makanan", description: "Dapat merekomendasikan jenis makanan yang lebih baik dikonsumsi oleh pengguna", image: "" },
+        { name: "Pelacakan Jumlah Air Putih", description: "Mendapat notifikasi jadwal harian yang disesuaikan dengan kondisi kesehatan pengguna.", image: "" }
       ],
       getStartedButton: "Sign Up"
     },
@@ -62,12 +62,12 @@ exports.getFAQPage = (req, res) => {
         answer: "Pelacakan Nutrisi di WellNav membantu pengguna dengan mencatat makanan yang dikonsumsi setiap hari dan menghitung jumlah kalori, karbohidrat, protein, dan lemak yang masuk ke tubuh. Fitur ini menyediakan grafik yang memvisualisasikan data nutrisi sehingga Anda bisa melihat bagaimana makanan yang Anda konsumsi berdampak pada kesehatan Anda. Selain itu, pelacakan nutrisi memberikan peringatan jika ada asupan makanan yang berlebihan atau dapat memperburuk kondisi kesehatan Anda, membantu Anda membuat pilihan yang lebih baik untuk mencapai tujuan kesehatan Anda."
       },
       {
-        question: "Apakah aplikasi WellNav memberikan informasi nutrisi untuk setiap makanan?",
-        answer: "test"
+        question: "Apakah aplikasi WellNav dapat menghitung jumlah nutrisi untuk setiap makanan yang dikonsumsi?",
+        answer: "WellNav memberikan fitur yang dapat mempermudah pengguna untuk menghitung jumlah nutrisi setiap hari nya seperti jumlah kalori, karbohidrat, protein, dan lemak. Informasi ini membantu pengguna membuat keputusan yang lebih baik tentang makanan yang dikonsumsi."
       }, 
       {
-        question: "Bagaimana cara mendapatkan bantuan atau dukungan teknis untuk Wellnav?",
-        answer: "test"
+        question: "Apakah WellNav dapat membantu saya melacak konsumsi air putih harian saya?",
+        answer: "WellNav memiliki fitur Pelacakan Air Putih yang memungkinkan pengguna mencatat jumlah air yang dikonsumsi setiap hari. Fitur ini juga memberikan pengingat untuk memastikan pengguna tetap terhidrasi dengan baik sepanjang hari."
       }
     ]
   });
