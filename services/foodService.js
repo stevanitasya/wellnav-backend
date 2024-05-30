@@ -12,6 +12,4 @@ const getFoodsByUserHealthCondition = async (username) => {
   return foods;
 };
 
-module.exports = {
-  getFoodsByUserHealthCondition
-};
+module.exports = {getFoodsByUserHealthCondition};
