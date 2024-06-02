@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const Food = require('../models/Food');  // Import model Food 
 const jwt = require('jsonwebtoken');
 const sendLoginNotification = require('../config/nodemailer');
 
@@ -6,7 +7,7 @@ const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
 };
 
-//sign up
+// Sign up
 exports.createUser = async (req, res) => {
   try {
     const { username, email, password, confirmPassword, age, healthCondition } = req.body;
@@ -30,7 +31,7 @@ exports.createUser = async (req, res) => {
   }
 };
 
-//login
+// Login
 exports.loginUser = async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -97,7 +98,7 @@ exports.updateProfile = async (req, res) => {
   }
 };
 
-//dashboard
+// Dashboard
 exports.getDashboardData = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -128,7 +129,7 @@ exports.getDashboardData = async (req, res) => {
   }
 };
 
-//pelacakan nutrisi
+// Pelacakan nutrisi
 exports.addFoodConsumption = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -153,7 +154,7 @@ exports.addFoodConsumption = async (req, res) => {
       totalCarbs += food.carbohydrates;
       totalProtein += food.protein;
       totalFat += food.fat;
-      
+
       if (food.healthConditions.some(cond => healthConditions.includes(cond))) {
         isFoodSafe = false;
       }
@@ -191,7 +192,7 @@ exports.addFoodConsumption = async (req, res) => {
   }
 };
 
-//pelacakan nutrisi
+// Pelacakan nutrisi
 exports.getFoodConsumption = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -209,26 +210,48 @@ exports.getFoodConsumption = async (req, res) => {
   }
 };
 
-//rekomendasi makanan berdasarkan kondisi kesehatan
-exports.getFoodRecommendations = async (req, res) => {
+// Rekomendasi makanan berdasarkan kondisi kesehatan
+exports.getRecommendedFoods = async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+    const { userId, filter } = req.params;
+
+    let query = {};
+    switch (filter) {
+      case 'lowcalories':
+        query.calories = { $lt: 100 };
+        break;
+      case 'glutenfree':
+        query.glutenFree = true;
+        break;
+      case 'vegan':
+        query.vegan = true;
+        break;
+      case 'favorite':
+        const user = await User.findById(userId).populate('favoriteFoods');
+        return res.json(user.favoriteFoods);
+      default:
+        // Menampilkan semua makanan
     }
 
-    const recommendations = await Food.find({
-      healthConditions: { $in: user.healthCondition }
-    });
-
-    res.json(recommendations);
+    const recommendedFoods = await Food.find(query);
+    res.json(recommendedFoods);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-//untuk memfilter makanan
+// Pencarian makanan
+exports.searchFoods = async (req, res) => {
+  try {
+    const { query } = req.query;
+    const foods = await Food.find({ name: { $regex: query, $options: 'i' } });
+    res.json(foods);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// Filter makanan rekomendasi
 exports.filterFoodRecommendations = async (req, res) => {
   try {
     const { category } = req.query;
@@ -239,7 +262,7 @@ exports.filterFoodRecommendations = async (req, res) => {
   }
 };
 
-//menandai makanan sebagai favorit
+// Menandai makanan sebagai favorit
 exports.toggleFavoriteFood = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -263,7 +286,7 @@ exports.toggleFavoriteFood = async (req, res) => {
   }
 };
 
-//untuk mendapatkan makanan favorit
+// Mendapatkan makanan favorit
 exports.getFavoriteFoods = async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -271,6 +294,7 @@ exports.getFavoriteFoods = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
+
     res.json(user.favoriteFoods);
   } catch (error) {
     res.status(400).json({ error: error.message });

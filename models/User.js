@@ -5,7 +5,7 @@ const foodConsumptionSchema = new mongoose.Schema({
   date: { type: Date, required: true },
   mealType: {
     type: String,
-    enum: ['Breakfast', 'Lunch', 'Dinner'],
+    enum: ['Sarapan', 'Makan Siang', 'Makan Siang'],
     required: true
   },
   foods: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Food' }],
