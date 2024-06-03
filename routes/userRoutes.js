@@ -1,17 +1,11 @@
 const express = require('express');
-const { createUser, loginUser, addFoodConsumption, getDashboardData, getProfile, updateProfile, getFoodRecommendations, searchFoods, filterFoodRecommendations, toggleFavoriteFood, getFavoriteFoods } = require('../controllers/userController');
+const { createUser, loginUser,getProfile, updateProfile, toggleFavoriteFood, getFavoriteFoods } = require('../controllers/userController');
 const router = express.Router();
 
-router.post('/signup', createUser); 
-router.post('/login', loginUser); 
-router.post('/food', addFoodConsumption);
-router.get('/dashboard/:userId', getDashboardData);
+router.post('/signup', createUser);
+router.post('/login', loginUser);
 router.get('/profile/:userId', getProfile);
 router.put('/profile/:userId', updateProfile);
-router.get('/recommendations/:userId', getFoodRecommendations);
-router.get('/search', searchFoods);
-router.get('/recommendations/filter', filterFoodRecommendations);
-router.post('/favorite/:userId/:foodId', toggleFavoriteFood);
-router.get('/favorite/:userId', getFavoriteFoods);
-
+router.post('/favorites/:userId/:foodId', toggleFavoriteFood);
+router.get('/favorites/:userId', getFavoriteFoods);
 module.exports = router;

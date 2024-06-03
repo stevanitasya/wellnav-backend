@@ -1,5 +1,5 @@
 const Food = require('../models/Food');
-const User = require('../models/User'); 
+const User = require('../models/User');
 
 // Mengambil semua makanan
 exports.getAllFoods = async (req, res) => {
