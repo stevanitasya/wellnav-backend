@@ -1,11 +1,13 @@
 const express = require('express');
-const { createUser, loginUser,getProfile, updateProfile, toggleFavoriteFood, getFavoriteFoods } = require('../controllers/userController');
 const router = express.Router();
+const userController = require('../controllers/userController');
+const auth = require('../middleware/auth');
 
-router.post('/signup', createUser);
-router.post('/login', loginUser);
-router.get('/profile/:userId', getProfile);
-router.put('/profile/:userId', updateProfile);
-router.post('/favorites/:userId/:foodId', toggleFavoriteFood);
-router.get('/favorites/:userId', getFavoriteFoods);
+router.post('/signup', userController.createUser);
+router.post('/login', userController.loginUser);
+router.get('/profile/:userId', auth, userController.getProfile);
+router.put('/profile/:userId', auth, userController.updateProfile);
+router.post('/favorites/:userId/:foodId', auth, userController.toggleFavoriteFood);
+router.get('/favorites/:userId', auth, userController.getFavoriteFoods);
+
 module.exports = router;

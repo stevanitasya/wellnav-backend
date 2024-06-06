@@ -1,8 +1,9 @@
 const express = require('express');
-const { addFoodLog, getFoodLogsByDate } = require('../controllers/foodLogController');
 const router = express.Router();
+const foodLogController = require('../controllers/foodLogController');
+const auth = require('../middleware/auth');
 
-router.post('/foodlog/:userId', addFoodLog);
-router.get('/foodlog/:userId', getFoodLogsByDate);
+router.post('/', auth, foodLogController.addFoodLog);
+router.get('/today', auth, foodLogController.getTodayFoodLogs);
 
 module.exports = router;

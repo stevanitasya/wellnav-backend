@@ -2,7 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const connectDB = require('./config/db');
 const passport = require('passport');
-const routes = require('./routes');
+const session = require('express-session');
+const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 const foodRoutes = require('./routes/foodRoutes');
 const foodLogRoutes = require('./routes/foodLogRoutes');
@@ -19,7 +20,6 @@ connectDB();
 // Middleware
 app.use(bodyParser.json());
 app.use(cors());
-
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
@@ -29,7 +29,7 @@ app.use('/api/users', userRoutes);
 app.use('/api/foods', foodRoutes);
 app.use('/api/foodlogs', foodLogRoutes);
 app.use('/api/watertrackings', waterTrackingRoutes);
-app.use('/api', routes);
+app.use('/api/notifications', notificationRoutes);
 
 app.get('/auth/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 app.get('/auth/google/callback',

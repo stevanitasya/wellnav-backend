@@ -7,12 +7,7 @@ const foodSchema = new mongoose.Schema({
   carbohydrates: { type: Number, required: true },
   protein: { type: Number, required: true },
   fat: { type: Number, required: true },
-  category: {
-    type: String,
-    enum: ['low calories', 'gluten free', 'vegan', 'all'],
-    default: 'all'
-  },
-  healthConditions: [{ type: String, enum: ['GERD', 'Diabetes', 'Asam Urat', 'Darah tinggi'] }],
+  category: { type: String, enum: ['low calories', 'gluten free', 'vegan', 'all'], default: 'all'},
   isFavorite: { type: Boolean, default: false }
 });
 
