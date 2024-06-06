@@ -7,9 +7,7 @@ const userRoutes = require('./routes/userRoutes');
 const foodRoutes = require('./routes/foodRoutes');
 const foodLogRoutes = require('./routes/foodLogRoutes');
 const waterTrackingRoutes = require('./routes/waterTrackingRoutes');
-//const guestRoutes = require('./routes/guestRoutes');
-const session = require('express-session');
-const cors = require('cors');
+const notificationRoutes = require('./routes/notificationRoutes');
 require('./config/passport');
 require('dotenv').config();
 
