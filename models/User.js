@@ -1,11 +1,12 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
+// Skema untuk konsumsi makanan
 const foodConsumptionSchema = new mongoose.Schema({
   date: { type: Date, required: true },
   mealType: {
     type: String,
-    enum: ['Sarapan', 'Makan Siang', 'Makan Siang'],
+    enum: ['Sarapan', 'Makan Siang', 'Makan Malam'],
     required: true
   },
   foods: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Food' }],
@@ -15,6 +16,7 @@ const foodConsumptionSchema = new mongoose.Schema({
   fat: { type: Number, required: true }
 });
 
+// Skema pengguna
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
@@ -29,6 +31,7 @@ const userSchema = new mongoose.Schema({
   favoriteFoods: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Food' }]
 });
 
+// Middleware untuk hash password sebelum menyimpan
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) {
     return next();
@@ -38,9 +41,11 @@ userSchema.pre('save', async function(next) {
   next();
 });
 
+// Metode untuk membandingkan password
 userSchema.methods.matchPassword = async function(enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
 const User = mongoose.model('User', userSchema);
+
 module.exports = User;

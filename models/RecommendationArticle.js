@@ -5,6 +5,7 @@ const recommendationArticleSchema = new mongoose.Schema({
     title: { type: String, required: true },
     category: { type: String, enum: ['low calories', 'gluten free', 'vegan', 'all'], default: 'all'},
     healthConditions: [{ type: String, enum: ['GERD', 'Diabetes', 'Asam Urat', 'Darah tinggi'] }],
+    isFavorite: { type: Boolean, default: false }
 });
   
 const RecommendationArticle = mongoose.model('RecommendationArticle', recommendationArticleSchema);

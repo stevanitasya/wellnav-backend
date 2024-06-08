@@ -7,20 +7,31 @@ passport.use(new GoogleStrategy({
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
   callbackURL: '/auth/google/callback'
 }, async (accessToken, refreshToken, profile, done) => {
-  const { id, displayName, emails } = profile;
+  try {
+    const { id, displayName, emails } = profile;
 
-  let user = await User.findOne({ googleId: id });
-  if (!user) {
-    user = new User({ googleId: id, username: displayName, email: emails[0].value });
-    await user.save();
+    // Temukan pengguna berdasarkan googleId
+    let user = await User.findOne({ googleId: id });
+    if (!user) {
+      // Jika pengguna tidak ditemukan, buat pengguna baru
+      user = new User({ googleId: id, username: displayName, email: emails[0].value });
+      await user.save();
+    }
+    return done(null, user);
+  } catch (error) {
+    return done(error, null);
   }
-  return done(null, user);
 }));
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.findById(id, (err, user) => done(err, user));
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (error) {
+    done(error, null);
+  }
 });

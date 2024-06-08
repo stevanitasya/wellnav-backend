@@ -8,7 +8,6 @@ const foodSchema = new mongoose.Schema({
   protein: { type: Number, required: true },
   fat: { type: Number, required: true },
   category: { type: String, enum: ['low calories', 'gluten free', 'vegan', 'all'], default: 'all'},
-  isFavorite: { type: Boolean, default: false }
 });
 
 const Food = mongoose.model('Food', foodSchema);

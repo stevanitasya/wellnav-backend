@@ -38,14 +38,18 @@ exports.loginUser = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (user && (await user.matchPassword(password))) {
-      sendLoginNotification(user.email); // Kirim notifikasi email saat login berhasil
+      const token = generateToken(user._id);
+      user.tokens = user.tokens.concat({ token });
+      await user.save();
+
+      sendLoginNotification(user.email);
       res.json({
         _id: user._id,
         username: user.username,
         email: user.email,
         age: user.age,
         healthCondition: user.healthCondition,
-        token: generateToken(user._id),
+        token: token,
       });
     } else {
       res.status(401).json({ error: "Invalid username or password" });
