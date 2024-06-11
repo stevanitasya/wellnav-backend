@@ -6,7 +6,7 @@ const User = require('../models/User');
 exports.getAllFoods = async (req, res) => {
   try {
     const foods = await Food.find();
-    res.json(foods);
+    res.json(foods); 
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -26,7 +26,7 @@ exports.getFoodById = async (req, res) => {
 };
 
 // Mengambil makanan berdasarkan kategori dan mealType
-exports.getFoodsByCategoryAndMealType = async (req, res) => {
+exports.getRecomendedFoodByCategoryAndMealType = async (req, res) => {
   try {
     const { category, mealType, userId } = req.query;
     const query = {};
@@ -37,7 +37,7 @@ exports.getFoodsByCategoryAndMealType = async (req, res) => {
       query.mealType = mealType;
     }
 
-    const foods = await Food.find(query);
+    const recommendationarticles = await recommendationarticles.find(query);
     
     // Menambahkan validasi untuk kondisi kesehatan jika userId disediakan
     if (userId) {
@@ -51,7 +51,7 @@ exports.getFoodsByCategoryAndMealType = async (req, res) => {
       }
     }
 
-    res.json(foods);
+    res.json(recommendationarticles);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

@@ -65,18 +65,17 @@ exports.addFoodConsumption = async (req, res) => {
 };
 
 // Get food consumption
-exports.getFoodConsumption = async (req, res) => {
+exports.getTodayFoodLogs = async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const user = await User.findById(userId).populate('foodConsumption.foods');
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
-    }
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    
+    const foodLogs = await FoodLog.find({
+      userId: req.user._id,
+      date: { $gte: today }
+    });
 
-    const today = new Date().toISOString().split('T')[0];
-    const dailyConsumption = user.foodConsumption.filter(fc => fc.date.toISOString().split('T')[0] === today);
-
-    res.json(dailyConsumption);
+    res.status(200).json(foodLogs);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

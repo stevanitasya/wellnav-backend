@@ -28,7 +28,8 @@ const userSchema = new mongoose.Schema({
     required: true 
   },
   foodConsumption: [foodConsumptionSchema],
-  favoriteFoods: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Food' }]
+  favoriteFoods: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Food' }],
+  tokens: [{ token: { type: String, required: true } }] // Tambahkan ini
 });
 
 // Middleware untuk hash password sebelum menyimpan

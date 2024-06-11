@@ -5,11 +5,11 @@ const WaterTracking = require('../models/WaterTracking');
 // Endpoint untuk menambahkan log pelacakan air putih
 router.post('/', async (req, res) => {
   try {
-    const { userId, amount } = req.body;
-    const waterTracking = new WaterTracking({ userId, amount });
+    const { userId, amount, date } = req.body;
+    const waterTracking = new WaterTracking({ userId, amount, date });
     await waterTracking.save();
     res.status(201).json(waterTracking);
-  } catch (error) {
+  } catch (error) { 
     res.status(400).json({ error: error.message });
   }
 });

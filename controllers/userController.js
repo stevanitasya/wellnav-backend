@@ -21,6 +21,7 @@ exports.createUser = async (req, res) => {
     res.status(201).json({
       _id: user._id,
       username: user.username,
+      password: user.password, // password di sini sudah di-hash
       email: user.email,
       age: user.age,
       healthCondition: user.healthCondition,
@@ -54,6 +55,36 @@ exports.loginUser = async (req, res) => {
     } else {
       res.status(401).json({ error: "Invalid username or password" });
     }
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+exports.getDashboardData = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: "User not found" });
+    }
+
+    const latestConsumption = user.foodConsumption.slice(-1)[0] || {
+      date: null,
+      calories: 0,
+      carbohydrates: 0,
+      protein: 0,
+      fat: 0
+    };
+
+    res.json({
+      dailyCalories: latestConsumption.calories,
+      waterReminder: "Remember to drink 8 glasses of water today!",
+      nutritionTracking: {
+        carbohydrates: latestConsumption.carbohydrates,
+        protein: latestConsumption.protein,
+        fat: latestConsumption.fat
+      }
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
