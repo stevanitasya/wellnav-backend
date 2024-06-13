@@ -569,70 +569,66 @@ const seedFoods = [
 
 const seedRecommendationArticle = [
   // Low-Calorie Recipes
-  { 
+  {  
     title: "Ayam Panggang Bumbu Kuning", 
-    imageUrl: "https://img-global.cpcdn.com/recipes/3e26929e9a4a6b03/1200x630cq70/photo.jpg", 
+    imageUrl: "./images/AyamPanggangKuning.jpg", 
     content: "Ayam panggang dengan bumbu kuning yang lezat dan rendah kalori.", 
     category: "low calories",  
-    healthConditions: ["Diabetes"], 
+    healthConditions: ["Diabetes", "GERD"], 
     link: "https://cookpad.com/id/resep/123456-ayam-panggang-bumbu-kuning"
-  
   },
   { 
     title: "Soto Ayam", 
-    imageUrl: "https://img-global.cpcdn.com/recipes/6c0801c68f6e8bcf/1200x630cq70/photo.jpg", 
+    imageUrl: "./images/SotoAyam.jpg", 
     content: "Soto ayam yang segar dan rendah kalori, cocok untuk penderita Diabetes.", 
     category: "low calories",  
     healthConditions: ["Diabetes"], 
     link: "https://cookpad.com/id/resep/234567-soto-ayam"
-  
   },
 
   // Gluten-Free Recipes
   { 
     title: "Nasi Goreng Kembang Kol", 
-    imageUrl: "https://img-global.cpcdn.com/recipes/87a68cfa5f4a1f35/1200x630cq70/photo.jpg", 
+    imageUrl: "./images/NasiGorengKembangKol.jpg", 
     content: "Nasi goreng yang dibuat dengan kembang kol sebagai pengganti nasi.", 
     category: "gluten free",  
     healthConditions: ["Diabetes"], 
     link: "https://cookpad.com/id/resep/345678-nasi-goreng-kembang-kol"
-  
   },
   { 
     title: "Pepes Ikan", 
-    imageUrl: "https://img-global.cpcdn.com/recipes/a62b1a2031e6c1f8/1200x630cq70/photo.jpg", 
+    imageUrl: "./images/PepesIkan.jpg", 
     content: "Pepes ikan yang kaya rasa dan bebas gluten.", 
     category: "gluten free",  
     healthConditions: ["Diabetes"], 
     link: "https://cookpad.com/id/resep/456789-pepes-ikan"
-  
   },
 
   //vegan Recipes
   { 
     title: "Gado-Gado", 
-    imageUrl: "https://img-global.cpcdn.com/recipes/658dfd1b3b98b0fc/1200x630cq70/photo.jpg", 
+    imageUrl: "./images/GadoGado.jpg", 
     content: "Gado-gado dengan saus kacang yang kaya rasa, tanpa bahan hewani.", 
     category: "vegan",  
-    healthConditions: ["Diabetes"], 
+    healthConditions: ["Diabetes", "GERD"], 
     link: "https://cookpad.com/id/resep/567890-gado-gado"
   
   },
   { 
     title: "Urap Sayuran", 
-    imageUrl: "https://img-global.cpcdn.com/recipes/746598db29b34f30/1200x630cq70/photo.jpg", 
+    imageUrl: "./images/UrapSayur.jpg", 
     content: "Urap sayuran yang sehat dan lezat, cocok untuk dietvegan.", 
     category: "vegan",  
-    healthConditions: ["Diabetes"], 
+    healthConditions: ["Diabetes", "GERD"], 
     link: "https://cookpad.com/id/resep/678901-urap-sayuran"
   
   },
   { 
   title: "Tumis Kangkung", 
-  imageUrl: "https://img-global.cpcdn.com/recipes/aec1ed5826d4a86c/1200x630cq70/photo.jpg", 
+  imageUrl: "TumisKangkung.jpg", 
   content: "Tumis kangkung yang sederhana dan enak, cocok untuk dietvegan.",   
   category: "vegan",  
-  healthConditions: ["Diabetes"], 
+  healthConditions: ["Diabetes", "GERD"], 
   link: "https://cookpad.com/id/resep/789012-tumis-kangkung"
   },
 ];
