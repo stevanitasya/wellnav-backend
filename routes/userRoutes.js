@@ -5,7 +5,7 @@ const auth = require('../middleware/auth');
 
 router.post('/signup', userController.createUser);
 router.post('/login', userController.loginUser);
-router.get('/dashboard/:userId', auth, userController.getDashboardData);
+router.get('/dashboard/:userId', userController.getDashboardData);
 router.get('/profile/:userId', auth, userController.getProfile);
 router.put('/profile/:userId', auth, userController.updateProfile);
 router.post('/favorites/:userId/:foodId', auth, userController.toggleFavoriteFood);

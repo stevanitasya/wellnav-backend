@@ -585,6 +585,79 @@ const seedRecommendationArticle = [
     healthConditions: ["Diabetes"], 
     link: "https://cookpad.com/id/resep/234567-soto-ayam"
   },
+  { 
+    title: "Sup Sayur Hijau", 
+    imageUrl: "./images/SupSayurHijau..jpg", 
+    content: "Sayuran hijau seperti bayam, sawi, dan brokoli rendah kalori dan baik untuk penderita GERD.", 
+    category: "low calories", 
+    healthConditions: ["GERD"], 
+    link: "https://www.hellosehat.com/hidup-sehat/nutrisi/resep-makanan-sehat-untuk-penderita-gerd/" 
+  },
+  { 
+    title: "Pepes Ikan", 
+    imageUrl: "./images/PepesIkan.jpg", 
+    content: "Dimasak tanpa minyak dan rendah kalori, cocok untuk penderita GERD.", 
+    category: "low calories", 
+    healthConditions: ["GERD", "Asam Urat"], 
+    link: "https://www.tirto.id/resep-makanan-sehat-untuk-penderita-gerd-djkH" 
+  },
+  { 
+    title: "Tumis Kangkung", 
+    imageUrl: "./images/TumisKangkung.jpg", 
+    content: "Rendah kalori dan baik untuk lambung penderita GERD.", 
+    category: "low calories", 
+    healthConditions: ["GERD"], 
+    link: "https://www.healthline.com/nutrition/foods-to-eat-with-gerd" 
+  },
+  { 
+    title: "Urap Sayuran", 
+    imageUrl: "./images/UrapSayur.jpg", 
+    content: "Menggunakan sayuran hijau yang rendah kalori dan tanpa santan, cocok untuk penderita GERD.", 
+    category: "low calories", 
+    healthConditions: ["GERD"], 
+    link: "https://www.healthline.com/nutrition/foods-to-eat-with-gerd" 
+  },
+  { 
+    title: "Sup Ayam Sayur", 
+    imageUrl: "./images/SupAyam.jpg", 
+    content: "Sup ayam dengan sayuran rendah purin seperti wortel dan kentang merupakan pilihan sehat dan rendah kalori.", 
+    category: "low calories",  
+    healthConditions: ["Asam Urat"], 
+    link: "https://www.fimela.com/5-resep-masakan-lezat-yang-aman-untuk-penderita-asam-urat" 
+  },
+  { 
+    title: "Tumis Tahu", 
+    imageUrl: "./images/TumisTahu.jpg", 
+    content: "Tahu ditumis dengan sayuran rendah purin seperti wortel dan buncis adalah pilihan rendah kalori.", 
+    category: "low calories",  
+    healthConditions: ["Asam Urat"], 
+    link: "https://www.fimela.com/5-resep-masakan-lezat-yang-aman-untuk-penderita-asam-urat" 
+  },
+  { 
+    title: "Sup Tomat", 
+    imageUrl: "./images/SupTomat.jpg", 
+    content: "Sup tomat dengan sedikit garam dan lemak rendah baik untuk penderita Darah tinggi.", 
+    category: "low calories",  
+    healthConditions: ["Darah tinggi"], 
+    link: "https://www.halosehat.com/penyakit/tekanan-darah-tinggi/25-makanan-untuk-darah-tinggi-super-ampuh-dan-aman"
+  },
+  { 
+    title: "Tumis Labu Siam", 
+    imageUrl: "./images/TumisLabuSiam.jpg", 
+    content: "Labu siam yang ditumis dengan sedikit minyak adalah pilihan rendah kalori.", 
+    category: "low calories",  
+    healthConditions: ["Darah tinggi"], 
+    link: "https://www.fimela.com/food/read/4299277/7-resep-masakan-untuk-penderita-kolesterol-dan-darah-tinggi"
+  },
+  { 
+    title: "Sayur Bening Daun Kelor", 
+    imageUrl: "./images/SayurBeningDaunKelor.jpg", 
+    content: "Sayur bening daun kelor dengan wortel rendah kalori dan baik untuk tekanan darah.", 
+    category: "low calories",  
+    healthConditions: ["Darah tinggi"], 
+    link: "https://www.fimela.com/food/read/4299277/7-resep-masakan-untuk-penderita-kolesterol-dan-darah-tinggi"
+  },
+
 
   // Gluten-Free Recipes
   { 
@@ -600,8 +673,40 @@ const seedRecommendationArticle = [
     imageUrl: "./images/PepesIkan.jpg", 
     content: "Pepes ikan yang kaya rasa dan bebas gluten.", 
     category: "gluten free",  
-    healthConditions: ["Diabetes"], 
+    healthConditions: ["Diabetes", "Asam Urat", "Darah tinggi"], 
     link: "https://cookpad.com/id/resep/456789-pepes-ikan"
+  },
+  { 
+    title: "Sate Sapi", 
+    imageUrl: "./images/SateSapi.jpg", 
+    content: "Menggunakan bumbu kecap tanpa gluten, cocok untuk penderita GERD.", 
+    category: "gluten free", 
+    healthConditions: ["GERD"], 
+    link: "https://www.tirto.id/resep-makanan-sehat-untuk-penderita-gerd-djkH" 
+  },
+  { 
+    title: "Pisang Rebus", 
+    imageUrl: "./images/PisangRebus.jpg", 
+    content: "Alternatif camilan bebas gluten yang baik untuk penderita GERD.", 
+    category: "gluten free", 
+    healthConditions: ["GERD"], 
+    link: "https://www.healthline.com/nutrition/foods-to-eat-with-gerd" 
+  },
+  { 
+    title: "Sayur Lodeh", 
+    imageUrl: "./images/SayurLodeh.jpg", 
+    content: "Menggunakan santan tanpa tambahan gluten, baik untuk penderita GERD.", 
+    category: "gluten free", 
+    healthConditions: ["GERD", "Darah tinggi"], 
+    link: "https://www.healthline.com/nutrition/foods-to-eat-with-gerd" 
+  },
+  { 
+    title: "Kentang Rebus", 
+    imageUrl: "./images/KentangRebus.jpg", 
+    content: "Kentang rebus adalah pilihan bebas gluten yang sehat untuk penderita asam urat.", 
+    category: "gluten free",  
+    healthConditions: ["Asam Urat", "Darah tinggi"], 
+    link: "https://www.fimela.com/5-resep-masakan-lezat-yang-aman-untuk-penderita-asam-urat" 
   },
 
   //vegan Recipes
@@ -610,7 +715,7 @@ const seedRecommendationArticle = [
     imageUrl: "./images/GadoGado.jpg", 
     content: "Gado-gado dengan saus kacang yang kaya rasa, tanpa bahan hewani.", 
     category: "vegan",  
-    healthConditions: ["Diabetes", "GERD"], 
+    healthConditions: ["GERD", "Diabetes", "Asam Urat"], 
     link: "https://cookpad.com/id/resep/567890-gado-gado"
   
   },
@@ -625,11 +730,27 @@ const seedRecommendationArticle = [
   },
   { 
   title: "Tumis Kangkung", 
-  imageUrl: "TumisKangkung.jpg", 
+  imageUrl: "./images/TumisKangkung.jpg", 
   content: "Tumis kangkung yang sederhana dan enak, cocok untuk dietvegan.",   
   category: "vegan",  
   healthConditions: ["Diabetes", "GERD"], 
   link: "https://cookpad.com/id/resep/789012-tumis-kangkung"
+  },
+  { 
+    title: "Ubi Cilembu Panggang", 
+    imageUrl: "./images/UbiCilembuPanggang.jpg", 
+    content: "Ubi cilembu panggang adalah pilihan camilan bebas gluten yang sehat.", 
+    category: "vegan",  
+    healthConditions: ["Asam Urat", "Darah tinggi"], 
+    link: "https://www.fimela.com/5-resep-masakan-lezat-yang-aman-untuk-penderita-asam-urat" 
+  },
+  { 
+    title: "Singkong Rebus", 
+    imageUrl: "./images/SingkongRebus.jpg", 
+    content: "Singkong rebus adalah alternatif bebas gluten yang baik untuk penderita asam urat.", 
+    category: "vegan",  
+    healthConditions: ["Asam Urat", "Darah tinggi"], 
+    link: "https://www.fimela.com/5-resep-masakan-lezat-yang-aman-untuk-penderita-asam-urat" 
   },
 ];
 
@@ -655,5 +776,4 @@ const seedDB = async () => {
 seedDB().catch(err => {
   console.error(err);
   mongoose.connection.close();
-
 });
