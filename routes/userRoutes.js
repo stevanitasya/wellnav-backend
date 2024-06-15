@@ -12,3 +12,4 @@ router.post('/favorites/:userId/:foodId', auth, userController.toggleFavoriteFoo
 router.get('/favorites/:userId', auth, userController.getFavoriteFoods);
 
 module.exports = router;
+ 

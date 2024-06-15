@@ -536,7 +536,7 @@ const seedFoods = [
   
   //makan malam 
   { 
-    imageUrl: "./images/Sayur Lodeh.jpg",
+    imageUrl: "./images/SayurLodeh.jpg",
     name:  "Sayur Lodeh", 
     calories: 350, 
     carbohydrates: 40, 

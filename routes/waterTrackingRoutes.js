@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const WaterTracking = require('../models/WaterTracking');
+const WaterTracking = require('../models/WaterTracking'); // Adjust the path if needed
 
 // Endpoint untuk menambahkan log pelacakan air putih
 router.post('/', async (req, res) => {
