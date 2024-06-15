@@ -1,81 +1,55 @@
-const User = require('../models/User');
+const FoodLog = require('../models/FoodLog');
 const Food = require('../models/Food');
 
-// Add food consumption
-exports.addFoodConsumption = async (req, res) => {
+exports.addFoodLog = async (req, res) => {
   try {
-    const userId = req.params.userId;
-    const { mealType, foodIds } = req.body;
+    const { userId, foodId, mealType, quantity } = req.body;
 
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ error: "User not found" });
+    // Validasi makanan
+    const food = await Food.findById(foodId);
+    if (!food) {
+      return res.status(404).json({ error: "Food not found" });
     }
 
-    const foods = await Food.find({ _id: { $in: foodIds } });
-    const healthConditions = user.healthCondition;
-
-    let totalCalories = 0;
-    let totalCarbs = 0;
-    let totalProtein = 0;
-    let totalFat = 0;
-    let isFoodSafe = true;
-
-    foods.forEach(food => {
-      totalCalories += food.calories;
-      totalCarbs += food.carbohydrates;
-      totalProtein += food.protein;
-      totalFat += food.fat;
-      
-      if (food.healthConditions.some(cond => healthConditions.includes(cond))) {
-        isFoodSafe = false;
-      }
+    // Buat food log
+    const foodLog = new FoodLog({
+      userId,
+      foodId,
+      mealType,
+      quantity
     });
 
-    if (!isFoodSafe) {
-      return res.status(400).json({ error: "The food you eat is not good for your current health condition" });
-    }
-
-    const today = new Date().toISOString().split('T')[0];
-    let dailyConsumption = user.foodConsumption.find(fc => fc.date.toISOString().split('T')[0] === today && fc.mealType === mealType);
-
-    if (dailyConsumption) {
-      dailyConsumption.foods = [...dailyConsumption.foods, ...foodIds];
-      dailyConsumption.calories += totalCalories;
-      dailyConsumption.carbohydrates += totalCarbs;
-      dailyConsumption.protein += totalProtein;
-      dailyConsumption.fat += totalFat;
-    } else {
-      user.foodConsumption.push({
-        date: new Date(),
-        mealType,
-        foods: foodIds,
-        calories: totalCalories,
-        carbohydrates: totalCarbs,
-        protein: totalProtein,
-        fat: totalFat
-      });
-    }
-
-    await user.save();
-    res.json(user.foodConsumption);
+    await foodLog.save();
+    res.status(201).json(foodLog);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-// Get food consumption
-exports.getTodayFoodLogs = async (req, res) => {
+exports.getFoodLogsByDate = async (req, res) => {
   try {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    const foodLogs = await FoodLog.find({
-      userId: req.user._id,
-      date: { $gte: today }
-    });
+    const { userId, date } = req.params;
+    const startDate = new Date(date);
+    const endDate = new Date(date);
+    endDate.setDate(endDate.getDate() + 1);
 
-    res.status(200).json(foodLogs);
+    const foodLogs = await FoodLog.find({
+      userId,
+      date: {
+        $gte: startDate,
+        $lt: endDate
+      }
+    }).populate('foodId');
+
+    const nutritionSummary = foodLogs.reduce((acc, log) => {
+      acc.calories += log.foodId.calories * log.quantity;
+      acc.carbs += log.foodId.carbs * log.quantity;
+      acc.protein += log.foodId.protein * log.quantity;
+      acc.fat += log.foodId.fat * log.quantity;
+      return acc;
+    }, { calories: 0, carbs: 0, protein: 0, fat: 0 });
+
+    res.json({ foodLogs, nutritionSummary });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

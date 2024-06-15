@@ -78,7 +78,6 @@ exports.getDashboardData = async (req, res) => {
 
     res.json({
       dailyCalories: latestConsumption.calories,
-      waterReminder: "Remember to drink 8 glasses of water today!",
       nutritionTracking: {
         carbohydrates: latestConsumption.carbohydrates,
         protein: latestConsumption.protein,

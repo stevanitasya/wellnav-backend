@@ -1,3 +1,12 @@
+  { 
+    title: "Urap Sayuran", 
+    imageUrl: "./images/UrapSayur.jpg", 
+    content: "Urap sayuran yang sehat dan lezat.", 
+    category: "vegan",  
+    healthConditions: ["Diabetes", "GERD"], 
+    link: "https://cookpad.com/id/resep/678901-urap-sayuran"
+  
+  },
 // GERD - sarapan, makan siang, makan malam
     //low calories
     { imageUrl: "./images/Oatmeal.jpg", name: "Smoothie Pisang", calories: 150, carbohydrates: 30, protein: 2, fat: 1, category: "low calories", mealType: "sarapan"},
