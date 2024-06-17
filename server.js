@@ -4,6 +4,7 @@ const connectDB = require('./config/db');
 const passport = require('passport');
 const session = require('express-session');
 const cors = require('cors');
+const path = require('path');
 const userRoutes = require('./routes/userRoutes');
 const foodRoutes = require('./routes/foodRoutes');
 const foodLogRoutes = require('./routes/foodLogRoutes');
@@ -12,17 +13,23 @@ const notificationRoutes = require('./routes/notificationRoutes');
 require('./config/passport');
 require('dotenv').config();
 
+
 const app = express();
 
 // Connect to database
 connectDB();
+const corsOptions = {
+  origin: 'https://your-app.vercel.app',
+  optionsSuccessStatus: 200
+};
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.static(path.join(__dirname, 'Public')));
 
 // Routes
 app.use('/api/users', userRoutes);

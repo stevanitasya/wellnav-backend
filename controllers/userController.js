@@ -125,7 +125,6 @@ exports.updateProfile = async (req, res) => {
       username: updatedUser.username,
       email: updatedUser.email,
       age: updatedUser.age,
-      healthCondition: updatedUser.healthCondition
     });
   } catch (error) {
     res.status(400).json({ error: error.message });

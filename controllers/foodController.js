@@ -2,11 +2,22 @@ const Food = require('../models/Food');
 const RecommendationArticle = require('../models/RecommendationArticle');
 const User = require('../models/User');
 
-// Mengambil semua makanan
-exports.getAllFoods = async (req, res) => { 
+// controllers/foodController.js
+exports.getAllFoods = async (req, res) => {
   try {
-    const foods = await Food.find();
-    res.json(foods); 
+    const { category, mealType } = req.query;
+    let query = {};
+
+    if (category && category !== "All") {
+      query.category = { $in: [category] };
+    }
+
+    if (mealType && mealType !== "All") {
+      query.mealType = { $in: [mealType] };
+    }
+
+    const foods = await Food.find(query);
+    res.json(foods);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
@@ -45,7 +56,7 @@ exports.getRecomendedFoodByCategory = async (req, res) => {
         );
         return res.json(safeFoods);
       }
-    }
+    } 
 
     res.json(recommendationarticles);
   } catch (error) {

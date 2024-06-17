@@ -5,7 +5,7 @@ const notificationSchema = mongoose.Schema({
   title: {  type: String, required: true},
   type: { type: String, enum: ['reminder', 'recommendation'], default: 'reminder'},
   createdAt: { type: Date, default: Date.now}
-});
+}); 
 
 const Notification = mongoose.model('Notification', notificationSchema);
 module.exports = Notification;

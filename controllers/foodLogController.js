@@ -3,7 +3,7 @@ const Food = require('../models/Food');
 
 exports.addFoodLog = async (req, res) => {
   try {
-    const { userId, foodId, mealType, quantity } = req.body;
+    const { userId, foodId, mealType } = req.body;
 
     // Validasi makanan
     const food = await Food.findById(foodId);
@@ -16,7 +16,6 @@ exports.addFoodLog = async (req, res) => {
       userId,
       foodId,
       mealType,
-      quantity
     });
 
     await foodLog.save();
@@ -41,16 +40,23 @@ exports.getFoodLogsByDate = async (req, res) => {
       }
     }).populate('foodId');
 
-    const nutritionSummary = foodLogs.reduce((acc, log) => {
-      acc.calories += log.foodId.calories * log.quantity;
-      acc.carbs += log.foodId.carbs * log.quantity;
-      acc.protein += log.foodId.protein * log.quantity;
-      acc.fat += log.foodId.fat * log.quantity;
-      return acc;
-    }, { calories: 0, carbs: 0, protein: 0, fat: 0 });
+    // Filter out logs with null foodId
+    const validFoodLogs = foodLogs.filter(log => log.foodId);
 
-    res.json({ foodLogs, nutritionSummary });
+    const nutritionSummary = validFoodLogs.reduce((acc, log) => {
+      acc.calories += log.foodId.calories || 0;
+      acc.carbohydrates += log.foodId.carbohydrates || 0;
+      acc.protein += log.foodId.protein || 0;
+      acc.fat += log.foodId.fat || 0;
+      return acc;
+    }, { calories: 0, carbohydrates: 0, protein: 0, fat: 0 });
+
+    console.log("Nutrition Summary:", nutritionSummary); // Debug: Log nutrition summary
+
+    res.json({ foodLogs: validFoodLogs, nutritionSummary });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
+
+
