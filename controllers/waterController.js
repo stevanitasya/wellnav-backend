@@ -1,7 +1,7 @@
-const WaterLog = require('../models/WaterLog');
+const WaterLog = require('../models/WaterTracking');
 
 // Add water log
-exports.addWaterLog = async (req, res) => {
+exports.addWaterLog = async (req, res) => { 
   try {
     const { amount, time } = req.body;
     const userId = req.user._id;
