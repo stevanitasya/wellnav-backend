@@ -61,30 +61,28 @@ exports.loginUser = async (req, res) => {
 };
 
 // Get dashboard data
-exports.getDashboardData = async (req, res) => {
+exports.getRecommendedFoods = async (req, res) => {
   try {
-    const userId = req.user._id; // Assuming you are using a middleware to set req.user
+    const userId = req.user._id; // Assuming you have set up a middleware to add user to req
+
     const user = await User.findById(userId);
-    
+
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const latestConsumption = user.foodConsumption.slice(-1)[0] || {
-      date: null,
-      calories: 0,
-      carbohydrates: 0,
-      protein: 0,
-      fat: 0
-    };
+    const healthConditions = user.healthCondition;
+    const recommendedFoods = await Food.find({
+      healthConditions: { $in: healthConditions }
+    });
+
+    const recommendedArticles = await RecommendationArticle.find({
+      healthConditions: { $in: healthConditions }
+    });
 
     res.json({
-      dailyCalories: latestConsumption.calories,
-      nutritionTracking: {
-        carbohydrates: latestConsumption.carbohydrates,
-        protein: latestConsumption.protein,
-        fat: latestConsumption.fat
-      }
+      foods: recommendedFoods,
+      articles: recommendedArticles
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
