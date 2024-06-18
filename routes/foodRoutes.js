@@ -7,6 +7,6 @@ router.get('/', foodController.getAllFoods); // Tidak perlu auth di sini
 router.get('/:id', foodController.getFoodById);
 router.get('/search', foodController.searchFoods); 
 router.get('/category', foodController.getRecomendedFoodByCategory);
-router.get('/recommended', auth, foodController.getRecommendedFoods); 
+router.get('/recommended', foodController.getRecommendedFoods); 
  
 module.exports = router;

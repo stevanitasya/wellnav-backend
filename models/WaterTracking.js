@@ -8,4 +8,4 @@ const waterTrackingSchema = new mongoose.Schema({
 
 const WaterTracking = mongoose.model('WaterTracking', waterTrackingSchema);
 
-module.exports = WaterTracking;
+module.exports = WaterTracking; 

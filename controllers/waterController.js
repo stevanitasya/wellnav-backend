@@ -1,4 +1,4 @@
-const WaterLog = require('../models/WaterTracking');
+const WaterLog = require('../models/WaterTracking'); 
 
 // Add water log
 exports.addWaterLog = async (req, res) => { 
