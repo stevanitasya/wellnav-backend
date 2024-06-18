@@ -63,8 +63,7 @@ exports.loginUser = async (req, res) => {
 // Get dashboard data
 exports.getRecommendedFoods = async (req, res) => {
   try {
-    const userId = req.user._id; // Assuming you have set up a middleware to add user to req
-
+    const userId = req.user._id; // Make sure user is authenticated and user object is available
     const user = await User.findById(userId);
 
     if (!user) {
@@ -72,16 +71,11 @@ exports.getRecommendedFoods = async (req, res) => {
     }
 
     const healthConditions = user.healthCondition;
-    const recommendedFoods = await Food.find({
-      healthConditions: { $in: healthConditions }
-    });
-
     const recommendedArticles = await RecommendationArticle.find({
       healthConditions: { $in: healthConditions }
     });
 
     res.json({
-      foods: recommendedFoods,
       articles: recommendedArticles
     });
   } catch (error) {
