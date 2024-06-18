@@ -63,8 +63,9 @@ exports.loginUser = async (req, res) => {
 // Get dashboard data
 exports.getDashboardData = async (req, res) => {
   try {
-    const userId = req.user._id;
+    const userId = req.user._id; // Assuming you are using a middleware to set req.user
     const user = await User.findById(userId);
+    
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
