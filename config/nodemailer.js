@@ -1,22 +1,19 @@
 const nodemailer = require('nodemailer');
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 const transporter = nodemailer.createTransport({
-  service: 'Gmail', 
+  service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS
   }
 });
 
-const sendLoginNotification = (userEmail) => {
+const sendLoginNotification = (email) => {
   const mailOptions = {
     from: process.env.EMAIL_USER,
-    to: userEmail,
+    to: email,
     subject: 'Login Notification',
-    text: 'You have successfully logged into your WellNav account.'
+    text: 'You have successfully logged in!'
   };
 
   transporter.sendMail(mailOptions, (error, info) => {
