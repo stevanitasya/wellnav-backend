@@ -96,21 +96,22 @@ exports.searchFoods = async (req, res) => {
 // Mendapatkan makanan yang direkomendasikan berdasarkan kondisi kesehatan pengguna
 exports.getRecommendedFoods = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const user = await User.findById(userId);
+    const { category } = req.query;
+    let query = {};
+    if (category && category !== "All") {
+      query.category = category;
+    }
 
+    // Fetch user health conditions from the authenticated user
+    const user = await User.findById(req.user._id);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    const healthConditions = user.healthCondition;
-    const recommendedFoods = await Food.find({
-      healthConditions: { $in: healthConditions }
-    });
+    query.healthConditions = { $in: user.healthCondition };
 
-    const recommendedArticles = await RecommendationArticle.find({
-      healthConditions: { $in: healthConditions }
-    });
+    const recommendedFoods = await Food.find(query);
+    const recommendedArticles = await RecommendationArticle.find(query);
 
     res.json({
       foods: recommendedFoods,
