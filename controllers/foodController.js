@@ -51,26 +51,32 @@ exports.getFoodById = async (req, res) => {
 // Mengambil makanan berdasarkan kategori dan mealType
 exports.getRecomendedFoodByCategory = async (req, res) => { 
   try {
-    const { category, userId } = req.query;
-    const query = {};
-    if (category && category !== "All") {
-      Food = Food.filter(food => food.category.includes(category));
-    }
-    const recommendationarticles = await recommendationarticles.find(query);
-    
-    // Menambahkan validasi untuk kondisi kesehatan jika userId disediakan
-    if (userId) {
-      const user = await User.findById(userId);
-      if (user) {
-        const healthConditions = user.healthCondition;
-        const safeFoods = Food.filter(food => 
-          !food.healthConditions.some(cond => healthConditions.includes(cond))
-        );
-        return res.json(safeFoods);
-      }
-    } 
+    const userId = req.user._id; // Get userId from authenticated user
+    const date = req.query.date || new Date().toISOString().split('T')[0]; // Use current date if not provided
+    const startDate = new Date(date);
+    const endDate = new Date(date);
+    endDate.setDate(endDate.getDate() + 1);
 
-    res.json(recommendationarticles);
+    const foodLogs = await FoodLog.find({
+      userId,
+      date: {
+        $gte: startDate,
+        $lt: endDate
+      }
+    }).populate('foodId');
+
+    // Filter out logs with null foodId
+    const validFoodLogs = foodLogs.filter(log => log.foodId);
+
+    const nutritionSummary = validFoodLogs.reduce((acc, log) => {
+      acc.calories += log.foodId.calories || 0;
+      acc.carbohydrates += log.foodId.carbohydrates || 0;
+      acc.protein += log.foodId.protein || 0;
+      acc.fat += log.foodId.fat || 0;
+      return acc;
+    }, { calories: 0, carbohydrates: 0, protein: 0, fat: 0 });
+
+    res.json({ foodLogs: validFoodLogs, nutritionSummary });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

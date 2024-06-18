@@ -3,7 +3,7 @@ const { addFoodLog, getFoodLogsByDate } = require('../controllers/foodLogControl
 const auth = require('../middleware/auth');
 const router = express.Router();
 
-router.post('/add', addFoodLog);
-router.get('/:userId/:date', getFoodLogsByDate);
+router.post('/add', auth, addFoodLog);
+router.get('/:date', auth, getFoodLogsByDate);
 
 module.exports = router;

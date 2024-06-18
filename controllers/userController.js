@@ -60,9 +60,10 @@ exports.loginUser = async (req, res) => {
   }
 };
 
+// Get dashboard data
 exports.getDashboardData = async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.user._id;
     const user = await User.findById(userId);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -92,7 +93,7 @@ exports.getDashboardData = async (req, res) => {
 // Get user profile
 exports.getProfile = async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.user._id;
     const user = await User.findById(userId).select('-password');
     if (!user) {
       return res.status(404).json({ error: "User not found" });
@@ -106,7 +107,7 @@ exports.getProfile = async (req, res) => {
 // Update user profile
 exports.updateProfile = async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.user._id;
     const { username, email, age, healthCondition } = req.body;
 
     const user = await User.findById(userId);
@@ -134,7 +135,7 @@ exports.updateProfile = async (req, res) => {
 // Toggle favorite food
 exports.toggleFavoriteFood = async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.user._id;
     const foodId = req.params.foodId;
 
     const user = await User.findById(userId);
@@ -158,7 +159,7 @@ exports.toggleFavoriteFood = async (req, res) => {
 // Get favorite foods
 exports.getFavoriteFoods = async (req, res) => {
   try {
-    const userId = req.params.userId;
+    const userId = req.user._id;
     const user = await User.findById(userId).populate('favoriteFoods');
     if (!user) {
       return res.status(404).json({ error: "User not found" });

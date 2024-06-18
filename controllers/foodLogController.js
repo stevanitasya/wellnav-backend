@@ -3,15 +3,16 @@ const Food = require('../models/Food');
 
 exports.addFoodLog = async (req, res) => {
   try {
-    const { userId, foodId, mealType } = req.body;
+    const { foodId, mealType } = req.body;
+    const userId = req.user._id; // Use the authenticated user's ID
 
-    // Validasi makanan
+    // Validate food
     const food = await Food.findById(foodId);
     if (!food) {
       return res.status(404).json({ error: "Food not found" });
     }
 
-    // Buat food log
+    // Create food log
     const foodLog = new FoodLog({
       userId,
       foodId,
@@ -27,7 +28,9 @@ exports.addFoodLog = async (req, res) => {
 
 exports.getFoodLogsByDate = async (req, res) => {
   try {
-    const { userId, date } = req.params;
+    const userId = req.user._id; // Use the authenticated user's ID
+    const { date } = req.params;
+
     const startDate = new Date(date);
     const endDate = new Date(date);
     endDate.setDate(endDate.getDate() + 1);
@@ -55,8 +58,9 @@ exports.getFoodLogsByDate = async (req, res) => {
 
     res.json({ foodLogs: validFoodLogs, nutritionSummary });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(400).json({ error: error.message }); 
   }
 };
+
 
 

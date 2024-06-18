@@ -1,7 +1,6 @@
 const WaterLog = require('../models/WaterLog');
-const User = require('../models/User');
 
-// Menambahkan log air minum
+// Add water log
 exports.addWaterLog = async (req, res) => {
   try {
     const { amount, time } = req.body;
@@ -20,7 +19,7 @@ exports.addWaterLog = async (req, res) => {
   }
 };
 
-// Mendapatkan log air minum untuk hari ini
+// Get today's water logs
 exports.getTodayWaterLogs = async (req, res) => {
   try {
     const userId = req.user._id;

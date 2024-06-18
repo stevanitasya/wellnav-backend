@@ -8,4 +8,4 @@ const foodLogSchema = new mongoose.Schema({
 });
 
 const FoodLog = mongoose.model('FoodLog', foodLogSchema); 
-module.exports = FoodLog;
+module.exports = FoodLog; 
