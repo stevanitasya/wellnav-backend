@@ -723,6 +723,14 @@ const seedRecommendationArticle = [
     healthConditions: ["Asam Urat", "Darah tinggi"], 
     link: "https://www.fimela.com/5-resep-masakan-lezat-yang-aman-untuk-penderita-asam-urat" 
   },
+  { 
+    title: "Singkong", 
+    imageUrl: "./images/SingkongRebus.jpg", 
+    content: "penderita...", 
+    category: "Vegan",  
+    healthConditions: ["Asam Urat", "Darah tinggi"], 
+    link: "https://www.fimela.com/5-resep-masakan-lezat-yang-aman-untuk-penderita-asam-urat" 
+  },
 ];
 
 
