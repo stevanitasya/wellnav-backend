@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const waterController = require('../controllers/waterTrackingController');
+const waterController = require('../controllers/waterController');
 const auth = require('../middleware/auth');
 
 router.post('/', auth, waterController.addWaterLog);
