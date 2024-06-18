@@ -15,16 +15,20 @@ require('dotenv').config();
 
 const app = express();
 
+// Logging environment variable
 console.log('MONGO_URI:', process.env.MONGO_URI);
 
+// Connect to database
 connectDB();
 
+// CORS configuration
 const corsOptions = {
   origin: 'https://wellnav-website.vercel.app',
   optionsSuccessStatus: 200
 };
 app.use(cors(corsOptions));
 
+// Middleware
 app.use(bodyParser.json());
 app.use(session({
   secret: process.env.SESSION_SECRET || 'secret',
@@ -36,6 +40,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'Public')));
 
+// Routes
 app.use('/api/users', userRoutes);
 app.use('/api/foods', foodRoutes);
 app.use('/api/foodlogs', foodLogRoutes);
