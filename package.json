@@ -2,9 +2,10 @@
   "name": "wellnav-backend",
   "version": "1.0.0",
   "description": "Backend for WellNav Website",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "vercel-build": "node server.js",
     "test": "jest",
     "dev": "nodemon server.js"
   },

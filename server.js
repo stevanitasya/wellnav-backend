@@ -13,25 +13,29 @@ const notificationRoutes = require('./routes/notificationRoutes');
 require('./config/passport');
 require('dotenv').config();
 
-
 const app = express();
 
-// Connect to database
+console.log('MONGO_URI:', process.env.MONGO_URI);
+
 connectDB();
+
 const corsOptions = {
-  origin: 'https://your-app.vercel.app',
+  origin: 'https://wellnav-website.vercel.app',
   optionsSuccessStatus: 200
 };
-
-// Middleware
-app.use(bodyParser.json());
 app.use(cors(corsOptions));
-app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }));
+
+app.use(bodyParser.json());
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { secure: process.env.NODE_ENV === 'production' }
+}));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'Public')));
 
-// Routes
 app.use('/api/users', userRoutes);
 app.use('/api/foods', foodRoutes);
 app.use('/api/foodlogs', foodLogRoutes);
@@ -44,6 +48,11 @@ app.get('/auth/google/callback',
   (req, res) => {
     res.redirect('/dashboard'); 
   });
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

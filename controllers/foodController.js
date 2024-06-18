@@ -5,7 +5,10 @@ const User = require('../models/User');
 // controllers/foodController.js
 exports.getAllFoods = async (req, res) => {
   try {
+    console.log('Received request for /api/foods');
     const { category, mealType } = req.query;
+    console.log('Query parameters:', { category, mealType });
+    
     let query = {};
 
     if (category && category !== "All") {
@@ -16,9 +19,18 @@ exports.getAllFoods = async (req, res) => {
       query.mealType = { $in: [mealType] };
     }
 
+    console.log('Query:', query);
+
+    const start = Date.now();
     const foods = await Food.find(query);
+    const end = Date.now();
+
+    console.log('Fetched foods:', foods);
+    console.log('Time taken:', end - start, 'ms');
+
     res.json(foods);
   } catch (error) {
+    console.error('Error fetching foods:', error.message);
     res.status(400).json({ error: error.message });
   }
 };
