@@ -96,19 +96,26 @@ exports.searchFoods = async (req, res) => {
 // Mendapatkan makanan yang direkomendasikan berdasarkan kondisi kesehatan pengguna
 exports.getRecommendedFoods = async (req, res) => {
   try {
-    const userId = req.user._id; // Ensure you get userId from authenticated user
+    const userId = req.user._id;
     const user = await User.findById(userId);
-    
+
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
-    
+
     const healthConditions = user.healthCondition;
     const recommendedFoods = await Food.find({
       healthConditions: { $in: healthConditions }
     });
-    
-    res.json(recommendedFoods);
+
+    const recommendedArticles = await RecommendationArticle.find({
+      healthConditions: { $in: healthConditions }
+    });
+
+    res.json({
+      foods: recommendedFoods,
+      articles: recommendedArticles
+    });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
