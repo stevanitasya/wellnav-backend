@@ -10,16 +10,12 @@ exports.getAllFoods = async (req, res) => {
     console.log('Query parameters:', { category, mealType });
 
     let query = {};
-
     if (category && category !== "All") {
-      query.category = { $in: [category] };
+      query.category = category;
     }
-
     if (mealType && mealType !== "All") {
-      query.mealType = { $in: [mealType] };
+      query.mealType = mealType;
     }
-
-    console.log('Query:', query);
 
     const start = Date.now();
     const foods = await Food.find(query);
