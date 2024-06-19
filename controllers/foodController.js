@@ -8,7 +8,7 @@ exports.getAllFoods = async (req, res) => {
     console.log('Received request for /api/foods');
     const { category, mealType } = req.query;
     console.log('Query parameters:', { category, mealType });
-    
+
     let query = {};
 
     if (category && category !== "All") {
