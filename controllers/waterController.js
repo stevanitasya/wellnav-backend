@@ -3,13 +3,13 @@ const WaterLog = require('../models/WaterTracking');
 // Add water log
 exports.addWaterLog = async (req, res) => { 
   try {
-    const { amount, time } = req.body;
+    const { amount, date } = req.body;
     const userId = req.user._id;
 
     const waterLog = new WaterLog({
       user: userId,
       amount,
-      time: time || Date.now()
+      date: date || Date.now()
     });
 
     await waterLog.save();
@@ -28,7 +28,7 @@ exports.getTodayWaterLogs = async (req, res) => {
 
     const waterLogs = await WaterLog.find({
       user: userId,
-      time: { $gte: startOfDay, $lte: endOfDay }
+      date: { $gte: startOfDay, $lte: endOfDay }
     });
 
     const totalAmount = waterLogs.reduce((total, log) => total + log.amount, 0);
