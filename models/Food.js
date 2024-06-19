@@ -11,5 +11,8 @@ const foodSchema = new mongoose.Schema({
     mealType: [{ type: String, enum: ["Sarapan", "Makan Siang", "Makan Malam"], required: true }]
 });
 
+foodSchema.index({ category: 1 });
+foodSchema.index({ mealType: 1 });
+
 const Food = mongoose.model('Food', foodSchema);
 module.exports = Food;

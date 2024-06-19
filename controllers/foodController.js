@@ -10,15 +10,19 @@ exports.getAllFoods = async (req, res) => {
     console.log('Query parameters:', { category, mealType });
 
     let query = {};
+
     if (category && category !== "All") {
-      query.category = category;
-    }
-    if (mealType && mealType !== "All") {
-      query.mealType = mealType;
+      query.category = { $in: [category] };
     }
 
+    if (mealType && mealType !== "All") {
+      query.mealType = { $in: [mealType] };
+    }
+
+    console.log('Query:', query);
+
     const start = Date.now();
-    const foods = await Food.find(query);
+    const foods = await Food.find(query).lean().exec(); // Using lean() for faster query
     const end = Date.now();
 
     console.log('Fetched foods:', foods);
