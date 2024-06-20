@@ -10,6 +10,7 @@ const foodRoutes = require('./routes/foodRoutes');
 const foodLogRoutes = require('./routes/foodLogRoutes');
 const waterTrackingRoutes = require('./routes/waterTrackingRoutes');
 const notificationRoutes = require('./routes/notificationRoutes');
+const auth = require('./middleware/auth');
 require('./config/passport');
 require('dotenv').config();
 
