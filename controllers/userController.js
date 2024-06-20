@@ -61,7 +61,7 @@ exports.loginUser = async (req, res) => {
 };
 
 // Get dashboard data
-const demoUserId = '60c72b2f9b1d8b3c4d8e8e76';
+const demoUserId = '666fd729a7d9380a07810628';
 
 exports.getDashboardData = async (req, res) => {
   try {
