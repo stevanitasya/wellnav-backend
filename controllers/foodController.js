@@ -116,7 +116,6 @@ exports.getRecommendedFoods = async (req, res) => {
   }
 };
 
-
 // Fungsi untuk memfilter makanan berdasarkan kategori
 exports.filterFoodRecommendations = async (req, res) => {
   try {
