@@ -11,7 +11,7 @@ const foodConsumptionSchema = new mongoose.Schema({
   },
   foods: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Food' }],
   calories: { type: Number, required: true },
-  carbohydrates: { type: Number, required: true },
+  carbohydrates: { type: Number, required: true }, 
   protein: { type: Number, required: true },
   fat: { type: Number, required: true }
 });

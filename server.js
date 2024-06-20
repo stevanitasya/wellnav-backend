@@ -24,7 +24,7 @@ connectDB();
 
 // CORS configuration
 const corsOptions = {
-  origin: 'https://wellnav-website.vercel.app',
+  origin: ['https://wellnav-website.vercel.app', 'http://localhost:3000'], // Add your local development URL
   optionsSuccessStatus: 200,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']

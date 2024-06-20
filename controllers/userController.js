@@ -19,7 +19,7 @@ exports.createUser = async (req, res) => {
     const user = new User({ username, email, password, age, healthCondition });
     await user.save();
     res.status(201).json({
-      _id: user._id,
+      _id: user._id, 
       username: user.username,
       password: user.password, // password di sini sudah di-hash
       email: user.email,
