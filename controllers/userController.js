@@ -63,9 +63,9 @@ exports.loginUser = async (req, res) => {
 // Get dashboard data
 exports.getDashboardData = async (req, res) => {
   try {
-    const userId = req.user._id; // Assuming you are using a middleware to set req.user
+    const userId = req.user._id;
     const user = await User.findById(userId);
-    
+
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -80,7 +80,7 @@ exports.getDashboardData = async (req, res) => {
 
     res.json({
       dailyCalories: latestConsumption.calories,
-      nutritionTracking: {
+      nutritionSummary: {
         carbohydrates: latestConsumption.carbohydrates,
         protein: latestConsumption.protein,
         fat: latestConsumption.fat
