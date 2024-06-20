@@ -61,10 +61,12 @@ exports.loginUser = async (req, res) => {
 };
 
 // Get dashboard data
+const demoUserId = '60c72b2f9b1d8b3c4d8e8e76';
+
 exports.getDashboardData = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const user = await User.findById(userId);
+    // const userId = req.user._id;
+    const user = await User.findById(demoUserId); // Use the demo user ID
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
