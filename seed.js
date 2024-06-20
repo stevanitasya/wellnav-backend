@@ -555,7 +555,7 @@ const seedRecommendationArticle = [
     content: "lezat dan rendah...", 
     category: "Rendah Kalori",  
     healthConditions: ["Diabetes", "GERD"], 
-    link: "https://cookpad.com/id/resep/123456-ayam-panggang-bumbu-kuning"
+    link: "https://cookpad.com/id/resep/11195075-ayam-panggang-pedas-bumbu-kuning"
   },
   { 
     title: "Soto Ayam", 
@@ -563,7 +563,7 @@ const seedRecommendationArticle = [
     content: "Penderita Diabetes...", 
     category: "Rendah Kalori",  
     healthConditions: ["Diabetes"], 
-    link: "https://cookpad.com/id/resep/234567-soto-ayam"
+    link: "https://cookpad.com/id/resep/3231990-soto-ayam-kuah-bening"
   },
   { 
     title: "Sup Sayur Hijau", 
@@ -571,7 +571,7 @@ const seedRecommendationArticle = [
     content: "Penderita GERD...", 
     category: "Rendah Kalori", 
     healthConditions: ["GERD"], 
-    link: "https://www.hellosehat.com/hidup-sehat/nutrisi/resep-makanan-sehat-untuk-penderita-gerd/" 
+    link: "https://cookpad.com/id/cari/sup%20sayur%20hijau" 
   },
   { 
     title: "Pepes Ikan", 
@@ -579,7 +579,7 @@ const seedRecommendationArticle = [
     content: "Penderita GERD...", 
     category: "Rendah Kalori", 
     healthConditions: ["GERD", "Asam Urat"], 
-    link: "https://www.tirto.id/resep-makanan-sehat-untuk-penderita-gerd-djkH" 
+    link: "https://www.halodoc.com/artikel/ini-cara-mudah-membuat-pepes-ikan-yang-lezat-dan-gurih" 
   },
   { 
     title: "Tumis Kangkung", 
@@ -587,7 +587,7 @@ const seedRecommendationArticle = [
     content: "Baik untuk lambung...", 
     category: "Rendah Kalori", 
     healthConditions: ["GERD"], 
-    link: "https://www.healthline.com/nutrition/foods-to-eat-with-gerd" 
+    link: "https://cookpad.com/id/resep/4615358-tumis-kangkung-biasa" 
   },
   { 
     title: "Urap Sayuran", 
@@ -595,7 +595,7 @@ const seedRecommendationArticle = [
     content: "Sayuran sehat...", 
     category: "Rendah Kalori", 
     healthConditions: ["GERD"], 
-    link: "https://www.healthline.com/nutrition/foods-to-eat-with-gerd" 
+    link: "https://cookpad.com/id/cari/urap%20sayuran" 
   },
   { 
     title: "Sup Ayam Sayur", 
@@ -603,7 +603,7 @@ const seedRecommendationArticle = [
     content: "Pilihan rendah...", 
     category: "Rendah Kalori",  
     healthConditions: ["Asam Urat"], 
-    link: "https://www.fimela.com/5-resep-masakan-lezat-yang-aman-untuk-penderita-asam-urat" 
+    link: "https://cookpad.com/id/resep/4250023-sayur-sop-ayam" 
   },
   { 
     title: "Tumis Tahu", 
@@ -611,7 +611,7 @@ const seedRecommendationArticle = [
     content: "Pilihan rendah...", 
     category: "Rendah Kalori",  
     healthConditions: ["Asam Urat"], 
-    link: "https://www.fimela.com/5-resep-masakan-lezat-yang-aman-untuk-penderita-asam-urat" 
+    link: "https://cookpad.com/id/cari/tumis%20tahu" 
   },
   { 
     title: "Sup Tomat", 
@@ -619,7 +619,7 @@ const seedRecommendationArticle = [
     content: "Untuk Darah tinggi...", 
     category: "Rendah Kalori",  
     healthConditions: ["Darah tinggi"], 
-    link: "https://www.halosehat.com/penyakit/tekanan-darah-tinggi/25-makanan-untuk-darah-tinggi-super-ampuh-dan-aman"
+    link: "https://cookpad.com/id/cari/sup%20tomat"
   },
   { 
     title: "Tumis Labu Siam", 
@@ -627,7 +627,7 @@ const seedRecommendationArticle = [
     content: "Pilihan rendah...", 
     category: "Rendah Kalori",  
     healthConditions: ["Darah tinggi"], 
-    link: "https://www.fimela.com/food/read/4299277/7-resep-masakan-untuk-penderita-kolesterol-dan-darah-tinggi"
+    link: "https://cookpad.com/id/cari/tumis%20labu%20siam"
   },
   { 
     title: "Sayur Daun Kelor", 
@@ -635,7 +635,7 @@ const seedRecommendationArticle = [
     content: "Untuk tekanan darah...", 
     category: "Rendah Kalori",  
     healthConditions: ["Darah tinggi"], 
-    link: "https://www.fimela.com/food/read/4299277/7-resep-masakan-untuk-penderita-kolesterol-dan-darah-tinggi"
+    link: "https://cookpad.com/id/resep/3389894-sayur-bening-daun-kelor"
   },
 
 
@@ -646,7 +646,7 @@ const seedRecommendationArticle = [
     content: "Bagus sebagai...", 
     category: "Bebas Gluten",  
     healthConditions: ["Diabetes"], 
-    link: "https://cookpad.com/id/resep/345678-nasi-goreng-kembang-kol"
+    link: "https://cookpad.com/id/resep/887634-nasi-goreng-kol-kubis"
   },
   { 
     title: "Pepes Ikan", 
@@ -654,7 +654,7 @@ const seedRecommendationArticle = [
     content: "Bebas gluten...", 
     category: "Bebas Gluten",  
     healthConditions: ["Diabetes", "Asam Urat", "Darah tinggi"], 
-    link: "https://cookpad.com/id/resep/456789-pepes-ikan"
+    link: "https://www.halodoc.com/artikel/ini-cara-mudah-membuat-pepes-ikan-yang-lezat-dan-gurih"
   },
   { 
     title: "Sate Sapi", 
@@ -662,7 +662,7 @@ const seedRecommendationArticle = [
     content: "Untuk penderita GERD...", 
     category: "Bebas Gluten", 
     healthConditions: ["GERD"], 
-    link: "https://www.tirto.id/resep-makanan-sehat-untuk-penderita-gerd-djkH" 
+    link: "https://cookpad.com/id/cari/sate%20sapi" 
   },
   { 
     title: "Pisang Rebus", 
@@ -670,7 +670,7 @@ const seedRecommendationArticle = [
     content: "Penderita GERD...", 
     category: "Bebas Gluten", 
     healthConditions: ["GERD"], 
-    link: "https://www.healthline.com/nutrition/foods-to-eat-with-gerd" 
+    link: "https://cookpad.com/id/cari/pisang%20rebus" 
   },
   { 
     title: "Sayur Lodeh", 
@@ -678,7 +678,7 @@ const seedRecommendationArticle = [
     content: "Untuk penderita GERD...", 
     category: "Bebas Gluten", 
     healthConditions: ["GERD", "Darah tinggi"], 
-    link: "https://www.healthline.com/nutrition/foods-to-eat-with-gerd" 
+    link: "https://www.halodoc.com/artikel/ini-resep-sayur-lodeh-khas-jawa-yang-lezat-dan-mudah-dibuat" 
   },
   { 
     title: "Kentang Rebus", 
@@ -686,7 +686,7 @@ const seedRecommendationArticle = [
     content: "Untuk penderita asam urat.", 
     category: "Bebas Gluten",  
     healthConditions: ["Asam Urat", "Darah tinggi"], 
-    link: "https://www.fimela.com/5-resep-masakan-lezat-yang-aman-untuk-penderita-asam-urat" 
+    link: "https://cookpad.com/id/cari/kentang%20rebus" 
   },
 
   //vegan Recipes
@@ -696,7 +696,7 @@ const seedRecommendationArticle = [
     content: "Tanpa bahan...", 
     category: "Vegan",  
     healthConditions: ["GERD", "Diabetes", "Asam Urat"], 
-    link: "https://cookpad.com/id/resep/567890-gado-gado"
+    link: "https://www.idntimes.com/food/recipe/lisa-deslina/berbeda-ini-3-resep-gado-gado-dari-tiap-daerah-di-indonesia-c1c2"
   
   },
   { 
@@ -705,7 +705,7 @@ const seedRecommendationArticle = [
   content: "Sederhana..",   
   category: "Vegan",  
   healthConditions: ["Diabetes", "GERD"], 
-  link: "https://cookpad.com/id/resep/789012-tumis-kangkung"
+  link: "https://www.fimela.com/food/read/4956750/7-resep-tumis-kangkung-enak-cocok-jadi-menu-sarapan"
   },
   { 
     title: "Ubi Cilembu Panggang", 
@@ -713,7 +713,7 @@ const seedRecommendationArticle = [
     content: "Camilan bebas gluten...", 
     category: "Vegan",  
     healthConditions: ["Asam Urat", "Darah tinggi"], 
-    link: "https://www.fimela.com/5-resep-masakan-lezat-yang-aman-untuk-penderita-asam-urat" 
+    link: "https://cookpad.com/id/cari/ubi%20cilembu" 
   },
   { 
     title: "Singkong Rebus", 
@@ -721,15 +721,7 @@ const seedRecommendationArticle = [
     content: "Untuk penderita...", 
     category: "Vegan",  
     healthConditions: ["Asam Urat", "Darah tinggi"], 
-    link: "https://www.fimela.com/5-resep-masakan-lezat-yang-aman-untuk-penderita-asam-urat" 
-  },
-  { 
-    title: "Singkong", 
-    imageUrl: "./images/SingkongRebus.jpg", 
-    content: "penderita...", 
-    category: "Vegan",  
-    healthConditions: ["Asam Urat", "Darah tinggi"], 
-    link: "https://www.fimela.com/5-resep-masakan-lezat-yang-aman-untuk-penderita-asam-urat" 
+    link: "https://cookpad.com/id/cari/singkong%20rebus%20empuk" 
   },
 ];
 
