@@ -96,9 +96,14 @@ exports.searchFoods = async (req, res) => {
 // Mendapatkan makanan yang direkomendasikan berdasarkan kondisi kesehatan pengguna
 exports.getRecommendedFoods = async (req, res) => {
   try {
-    const userId = req.user.id; // Get user id from authenticated request
+    let userId;
+    if (req.user) {
+      userId = req.user.id;
+    } else {
+      userId = req.query.userId; // Accept userId as a query parameter for unauthenticated requests
+    }
+
     const user = await User.findById(userId);
-    
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
