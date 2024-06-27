@@ -505,7 +505,7 @@ const seedFoods = [
   //Makan Siang
   { 
     imageUrl: "./images/SandwichGandumKejuSayuran.jpg",
-    name:  "Sandwich Gandum dengan Keju dan Sayuran", 
+    name:  "Sandwich Gandum Keju", 
     calories: 280, 
     carbohydrates: 30, 
     protein: 10, 
