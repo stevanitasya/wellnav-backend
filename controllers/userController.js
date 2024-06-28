@@ -5,9 +5,10 @@ const sendVerificationEmail = require('../config/nodemailer');
 
 // Generate JWT Token
 const generateToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '30d' });
+  return jwt.sign({ id }, process.env.JWT_SECRET, {
+    expiresIn: '30d',
+  });
 };
-
 // Sign up
 exports.createUser = async (req, res) => {
   try {
@@ -52,9 +53,9 @@ exports.verifyEmail = async (req, res) => {
     user.isVerified = true;
     user.verificationToken = undefined;
 
-    await user.save();
-
     const jwtToken = generateToken(user._id);
+    user.tokens = user.tokens.concat({ token: jwtToken });
+    await user.save();
 
     res.json({ token: jwtToken, message: 'Email berhasil diverifikasi.' });
   } catch (error) {
@@ -70,22 +71,34 @@ exports.loginUser = async (req, res) => {
     const user = await User.findOne({ username });
 
     if (!user) {
+      console.log('User not found');
       return res.status(400).json({ error: 'Invalid username or password' });
     }
 
     if (!user.isVerified) {
+      console.log('User not verified');
       return res.status(400).json({ error: 'Please verify your email first' });
     }
 
     const isMatch = await user.matchPassword(password);
 
     if (!isMatch) {
+      console.log('Password mismatch');
       return res.status(400).json({ error: 'Invalid username or password' });
     }
 
     const token = generateToken(user._id);
+    console.log('Generated Token:', token);
+
+    user.tokens = user.tokens.concat({ token });
+    console.log('Tokens Before Save:', user.tokens);
+
+    await user.save();
+
+    console.log('Tokens After Save:', user.tokens);
     res.json({ token, message: "Login berhasil" });
   } catch (error) {
+    console.log('Error:', error.message);
     res.status(400).json({ error: error.message });
   }
 };
