@@ -4,6 +4,7 @@ const userController = require('../controllers/userController');
 const auth = require('../middleware/auth');
 
 router.post('/signup', userController.createUser);
+router.get('/verify-email', userController.verifyEmail);
 router.post('/login', userController.loginUser); 
 router.get('/dashboard', userController.getDashboardData);
 router.get('/profile', auth, userController.getProfile);

@@ -21,28 +21,19 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  age: { type: Number, required: true },
-  healthCondition: { 
-    type: [String], 
-    enum: ['GERD', 'Diabetes', 'Asam Urat', 'Darah tinggi'], 
-    required: true 
-  },
-  foodConsumption: [foodConsumptionSchema],
-  favoriteFoods: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Food' }],
-  tokens: [{ token: { type: String, required: true } }] // Tambahkan ini
+  age: { type: Number },
+  healthCondition: { type: [String] },
+  isVerified: { type: Boolean, default: false },
+  verificationToken: { type: String },
 });
 
-// Middleware untuk hash password sebelum menyimpan
 userSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) {
-    return next();
-  }
+  if (!this.isModified('password')) return next();
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
 
-// Metode untuk membandingkan password
 userSchema.methods.matchPassword = async function(enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
