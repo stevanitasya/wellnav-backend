@@ -40,14 +40,19 @@ exports.verifyEmail = async (req, res) => {
     const user = await User.findOne({ verificationToken: token });
 
     if (!user) {
-      return res.status(400).json({ error: 'Token tidak valid atau token telah kadaluarsa.' });
+      return res.status(400).json({ error: 'Invalid token' });
     }
 
     user.isVerified = true;
-    user.verificationToken = undefined; // Menghapus token setelah verifikasi
+    user.verificationToken = undefined; // Menghapus token verifikasi
     await user.save();
 
-    res.status(200).json({ message: 'Email berhasil diverifikasi.' });
+    // Buat JWT token
+    const jwtToken = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
+      expiresIn: '1h',
+    });
+
+    res.json({ token: jwtToken, message: 'Email berhasil diverifikasi.' });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
