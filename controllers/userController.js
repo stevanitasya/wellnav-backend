@@ -53,7 +53,7 @@ exports.verifyEmail = async (req, res) => {
     user.isVerified = true;
     user.verificationToken = undefined;
 
-    const vercelUrlFE = process.env.VERCEL_URLBACKEND || 'http://localhost:3000/sign-in'
+    const vercelUrlFE = process.env.VERCEL_URLFRONTEND || 'http://localhost:3000/sign-in'
     const jwtToken = generateToken(user._id);
     user.tokens = user.tokens.concat({ token: jwtToken });
     await user.save();
