@@ -53,11 +53,12 @@ exports.verifyEmail = async (req, res) => {
     user.isVerified = true;
     user.verificationToken = undefined;
 
+    const vercelUrlFE = process.env.VERCEL_URLBACKEND || 'http://localhost:3000/sign-in'
     const jwtToken = generateToken(user._id);
     user.tokens = user.tokens.concat({ token: jwtToken });
     await user.save();
 
-    res.json({ token: jwtToken, message: 'Email berhasil diverifikasi.' });
+    res.redirect(`${vercelUrlFE}/sign-in?verified=true`);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

@@ -11,12 +11,12 @@ const sendVerificationEmail = async (user, token) => {
     },
   });
 
-  const vercelUrl = process.env.VERCEL_URL || 'http://localhost:5001'
+  const vercelUrlBE = process.env.VERCEL_URLBACKEND || 'http://localhost:5001'
   const mailOptions = {
     from: process.env.EMAIL_USER,
     to: user.email,
     subject: 'Email Verification',
-    text: `Please verify your email by clicking on the following link: ${vercelUrl}?token=${token}`,
+    text: `Please verify your email by clicking on the following link: ${vercelUrlBE}?token=${token}`,
   };
 
   try {
