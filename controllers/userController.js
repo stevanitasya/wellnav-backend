@@ -58,7 +58,7 @@ exports.verifyEmail = async (req, res) => {
     user.tokens = user.tokens.concat({ token: jwtToken });
     await user.save();
 
-    res.redirect(`${vercelUrlFE}/sign-in?verified=true`);
+    res.redirect(`${vercelUrlFE}?verified=true`);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
