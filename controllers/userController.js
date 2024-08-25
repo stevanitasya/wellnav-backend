@@ -14,8 +14,21 @@ exports.createUser = async (req, res) => {
   try {
     const { username, email, password, confirmPassword, age, healthCondition } = req.body;
 
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ error: 'Email is already registered.' });
+    }
+    
     if (password !== confirmPassword) {
       return res.status(400).json({ error: 'Passwords do not match' });
+    }
+
+    if (age < 12 || age > 50) {
+      return res.status(400).json({ error: 'You must be between 12 and 50 years old to register.' });
+    }
+
+    if (healthCondition.toLowerCase() === 'tidak ada') {
+      return res.status(400).json({ error: 'You must have a health condition to register.' });
     }
 
     const user = new User({
