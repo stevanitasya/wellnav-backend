@@ -18,13 +18,13 @@ exports.createUser = async (req, res) => {
     if (existingUser) {
       return res.status(400).json({ error: 'Email is already registered.' });
     }
-    
+
     if (password !== confirmPassword) {
       return res.status(400).json({ error: 'Passwords do not match' });
     }
 
-    if (age < 12 || age > 50) {
-      return res.status(400).json({ error: 'You must be between 12 and 50 years old to register.' });
+    if (age < 12) {
+      return res.status(400).json({ error: 'You must be at least 12 years old to register.' });
     }
 
     if (healthCondition.toLowerCase() === 'tidak ada') {
