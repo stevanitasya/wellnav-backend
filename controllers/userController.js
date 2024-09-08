@@ -186,25 +186,30 @@ exports.getProfile = async (req, res) => {
 // Update user profile
 exports.updateProfile = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const { username, email, age, healthCondition } = req.body;
+    const userId = req.user._id;  // Ambil ID user dari token atau session
+    const { username, email, age, healthCondition } = req.body;  // Data yang akan di-update
 
-    const user = await User.findById(userId);
-    if (!user) {
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        username,
+        email,
+        age,
+        healthCondition
+      },
+      { new: true, runValidators: true }  
+    );
+
+    if (!updatedUser) {
       return res.status(404).json({ error: "User not found" });
     }
 
-    user.username = username || user.username;
-    user.email = email || user.email;
-    user.age = age || user.age;
-    user.healthCondition = healthCondition || user.healthCondition;
-
-    const updatedUser = await user.save();
     res.json({
       _id: updatedUser._id,
       username: updatedUser.username,
       email: updatedUser.email,
       age: updatedUser.age,
+      healthCondition: updatedUser.healthCondition,
     });
   } catch (error) {
     res.status(400).json({ error: error.message });
