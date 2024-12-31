@@ -1,2 +1,2 @@
 # wellnav-backend
-Backend for WellNav Website
+I make this backend for my final thesis with my tim Azzah Husna Almy and Jesen Yeoko
